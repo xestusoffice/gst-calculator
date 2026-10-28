@@ -1,5 +1,6 @@
 /**
- * XESTUS Finance & Tax Suite - Master Stylesheet
+ * GST Calculator Suite - Master Stylesheet
+ * Engineered by XESTUS Company
  * Ultra-Performance, 100/100 Lighthouse, Hack-Proof Architecture
  * 100% Vanilla CSS3 - Zero Framework Bloat
  */
@@ -145,7 +146,6 @@ body {
   overflow-x: hidden;
 }
 
-/* Tabular figures for financial calculations */
 .font-mono, .amount, .tabular-nums, .stat-value, .calc-result {
   font-family: var(--font-mono);
   font-variant-numeric: tabular-nums;
@@ -225,64 +225,22 @@ input:focus, select:focus, textarea:focus {
   margin-bottom: 3.5rem;
 }
 
-/* Grid Utilities */
 .grid {
   display: grid;
   gap: 1.5rem;
 }
 
-.grid-2 {
-  grid-template-columns: repeat(2, 1fr);
-}
-
-.grid-3 {
-  grid-template-columns: repeat(3, 1fr);
-}
-
-.grid-4 {
-  grid-template-columns: repeat(4, 1fr);
-}
+.grid-2 { grid-template-columns: repeat(2, 1fr); }
+.grid-3 { grid-template-columns: repeat(3, 1fr); }
+.grid-4 { grid-template-columns: repeat(4, 1fr); }
 
 @media (max-width: 992px) {
-  .grid-3, .grid-4 {
-    grid-template-columns: repeat(2, 1fr);
-  }
+  .grid-3, .grid-4 { grid-template-columns: repeat(2, 1fr); }
 }
 
 @media (max-width: 768px) {
-  .grid-2, .grid-3, .grid-4 {
-    grid-template-columns: 1fr;
-  }
+  .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
 }
-
-.flex {
-  display: flex;
-}
-
-.flex-col {
-  flex-direction: column;
-}
-
-.items-center {
-  align-items: center;
-}
-
-.justify-between {
-  justify-content: space-between;
-}
-
-.justify-center {
-  justify-content: center;
-}
-
-.flex-wrap {
-  flex-wrap: wrap;
-}
-
-.gap-1 { gap: 0.5rem; }
-.gap-2 { gap: 1rem; }
-.gap-3 { gap: 1.5rem; }
-.gap-4 { gap: 2rem; }
 
 /* ==========================================================================
    4. NAVIGATION & HEADER
@@ -293,8 +251,8 @@ input:focus, select:focus, textarea:focus {
   top: 0;
   z-index: 100;
   background-color: var(--bg-card);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
   border-bottom: 1px solid var(--border-color);
   transition: background-color var(--transition-normal);
 }
@@ -303,34 +261,43 @@ input:focus, select:focus, textarea:focus {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 4.25rem;
+  height: 4.5rem;
 }
 
 .brand-logo {
   display: flex;
   align-items: center;
-  gap: 0.75rem;
-  font-weight: 700;
-  font-size: 1.25rem;
+  gap: 0.85rem;
   color: var(--text-primary);
   text-decoration: none !important;
 }
 
 .brand-icon {
-  width: 36px;
-  height: 36px;
+  width: 38px;
+  height: 38px;
   border-radius: var(--radius-md);
+  box-shadow: 0 2px 8px rgba(16, 185, 129, 0.25);
 }
 
-.brand-badge {
+.brand-text-wrap {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.15;
+}
+
+.brand-main-title {
+  font-weight: 800;
+  font-size: 1.25rem;
+  letter-spacing: -0.02em;
+  color: var(--text-primary);
+}
+
+.brand-sub-badge {
   font-size: 0.65rem;
   text-transform: uppercase;
-  letter-spacing: 0.05em;
-  background-color: var(--accent-primary-subtle);
+  letter-spacing: 0.08em;
   color: var(--accent-primary);
-  padding: 0.15rem 0.45rem;
-  border-radius: var(--radius-full);
-  font-weight: 600;
+  font-weight: 700;
 }
 
 .nav-links {
@@ -342,10 +309,10 @@ input:focus, select:focus, textarea:focus {
 
 .nav-link {
   font-size: 0.925rem;
-  font-weight: 500;
+  font-weight: 600;
   color: var(--text-secondary);
-  transition: color var(--transition-fast);
-  padding: 0.4rem 0.6rem;
+  transition: all var(--transition-fast);
+  padding: 0.4rem 0.65rem;
   border-radius: var(--radius-sm);
 }
 
@@ -361,7 +328,6 @@ input:focus, select:focus, textarea:focus {
   gap: 0.75rem;
 }
 
-/* Theme Switcher Button */
 .theme-switcher {
   display: inline-flex;
   align-items: center;
@@ -387,9 +353,7 @@ input:focus, select:focus, textarea:focus {
   height: 1.1rem;
 }
 
-.theme-btn:hover {
-  color: var(--text-primary);
-}
+.theme-btn:hover { color: var(--text-primary); }
 
 .theme-btn.active {
   background-color: var(--bg-secondary);
@@ -397,7 +361,6 @@ input:focus, select:focus, textarea:focus {
   box-shadow: var(--shadow-sm);
 }
 
-/* Mobile Menu Toggle */
 .mobile-toggle {
   display: none;
   padding: 0.5rem;
@@ -405,12 +368,9 @@ input:focus, select:focus, textarea:focus {
   border-radius: var(--radius-md);
 }
 
-.mobile-toggle svg {
-  width: 1.5rem;
-  height: 1.5rem;
-}
+.mobile-toggle svg { width: 1.5rem; height: 1.5rem; }
 
-@media (max-width: 900px) {
+@media (max-width: 960px) {
   .nav-links {
     display: none;
     position: absolute;
@@ -424,18 +384,12 @@ input:focus, select:focus, textarea:focus {
     box-shadow: var(--shadow-lg);
     gap: 0.75rem;
   }
-  
-  .nav-links.show {
-    display: flex;
-  }
-  
-  .mobile-toggle {
-    display: block;
-  }
+  .nav-links.show { display: flex; }
+  .mobile-toggle { display: block; }
 }
 
 /* ==========================================================================
-   5. HERO & CARDS DESIGN SYSTEM
+   5. HERO & CARDS
    ========================================================================== */
 
 .hero-section {
@@ -448,17 +402,17 @@ input:focus, select:focus, textarea:focus {
   align-items: center;
   gap: 0.5rem;
   font-size: 0.8rem;
-  font-weight: 600;
+  font-weight: 700;
   color: var(--accent-primary);
   background-color: var(--accent-primary-subtle);
-  border: 1px solid rgba(16, 185, 129, 0.25);
+  border: 1px solid rgba(16, 185, 129, 0.3);
   padding: 0.35rem 0.9rem;
   border-radius: var(--radius-full);
   margin-bottom: 1.25rem;
 }
 
 .hero-title {
-  font-size: clamp(2rem, 5vw, 3.25rem);
+  font-size: clamp(2.2rem, 5.5vw, 3.4rem);
   font-weight: 800;
   line-height: 1.15;
   margin-bottom: 1rem;
@@ -474,11 +428,10 @@ input:focus, select:focus, textarea:focus {
 .hero-subtitle {
   font-size: clamp(1rem, 2vw, 1.2rem);
   color: var(--text-secondary);
-  max-width: 720px;
+  max-width: 740px;
   margin: 0 auto 2rem;
 }
 
-/* Cards & Glassmorphic Panels */
 .card {
   background-color: var(--bg-card);
   border: 1px solid var(--border-card);
@@ -493,10 +446,7 @@ input:focus, select:focus, textarea:focus {
   border-color: rgba(16, 185, 129, 0.3);
 }
 
-.card-clickable {
-  cursor: pointer;
-}
-
+.card-clickable { cursor: pointer; }
 .card-clickable:hover {
   transform: translateY(-4px);
   box-shadow: var(--shadow-lg), var(--shadow-glow);
@@ -517,7 +467,7 @@ input:focus, select:focus, textarea:focus {
 
 .card-badge {
   font-size: 0.75rem;
-  font-weight: 600;
+  font-weight: 700;
   padding: 0.25rem 0.6rem;
   border-radius: var(--radius-full);
   background-color: var(--accent-primary-subtle);
@@ -536,14 +486,10 @@ input:focus, select:focus, textarea:focus {
 }
 
 @media (max-width: 900px) {
-  .calc-workspace {
-    grid-template-columns: 1fr;
-  }
+  .calc-workspace { grid-template-columns: 1fr; }
 }
 
-.form-group {
-  margin-bottom: 1.5rem;
-}
+.form-group { margin-bottom: 1.5rem; }
 
 .form-label {
   display: flex;
@@ -560,7 +506,6 @@ input:focus, select:focus, textarea:focus {
   color: var(--text-muted);
 }
 
-/* Currency Input with Prefix */
 .input-currency-wrapper {
   position: relative;
   display: flex;
@@ -583,10 +528,7 @@ input:focus, select:focus, textarea:focus {
   font-weight: 700;
 }
 
-/* Range Slider */
-.range-slider-wrapper {
-  margin-top: 0.65rem;
-}
+.range-slider-wrapper { margin-top: 0.65rem; }
 
 .range-slider {
   -webkit-appearance: none;
@@ -614,9 +556,7 @@ input:focus, select:focus, textarea:focus {
   transition: transform var(--transition-fast);
 }
 
-.range-slider::-webkit-slider-thumb:hover {
-  transform: scale(1.15);
-}
+.range-slider::-webkit-slider-thumb:hover { transform: scale(1.15); }
 
 .range-slider::-moz-range-thumb {
   width: 20px;
@@ -636,7 +576,6 @@ input:focus, select:focus, textarea:focus {
   margin-top: 0.35rem;
 }
 
-/* Chip Buttons & Tax Slabs */
 .chip-group {
   display: flex;
   flex-wrap: wrap;
@@ -666,7 +605,6 @@ input:focus, select:focus, textarea:focus {
   box-shadow: 0 2px 8px rgba(16, 185, 129, 0.3);
 }
 
-/* Switcher / Toggle Tabs */
 .segmented-control {
   display: inline-flex;
   background-color: var(--bg-tertiary);
@@ -693,7 +631,6 @@ input:focus, select:focus, textarea:focus {
   box-shadow: var(--shadow-sm);
 }
 
-/* Output Results Panel */
 .results-panel {
   background: linear-gradient(180deg, var(--bg-card) 0%, var(--bg-secondary) 100%);
   border: 1px solid var(--border-card);
@@ -712,7 +649,7 @@ input:focus, select:focus, textarea:focus {
 
 .result-hero-label {
   font-size: 0.875rem;
-  font-weight: 600;
+  font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.05em;
   color: var(--text-muted);
@@ -735,20 +672,10 @@ input:focus, select:focus, textarea:focus {
   font-size: 0.95rem;
 }
 
-.breakdown-row:last-child {
-  border-bottom: none;
-}
+.breakdown-row:last-child { border-bottom: none; }
+.breakdown-label { color: var(--text-secondary); }
+.breakdown-value { font-weight: 700; color: var(--text-primary); }
 
-.breakdown-label {
-  color: var(--text-secondary);
-}
-
-.breakdown-value {
-  font-weight: 700;
-  color: var(--text-primary);
-}
-
-/* Buttons */
 .btn {
   display: inline-flex;
   align-items: center;
@@ -762,11 +689,7 @@ input:focus, select:focus, textarea:focus {
   text-decoration: none !important;
 }
 
-.btn-primary {
-  background-color: var(--accent-primary);
-  color: #ffffff;
-}
-
+.btn-primary { background-color: var(--accent-primary); color: #ffffff; }
 .btn-primary:hover {
   background-color: var(--accent-primary-hover);
   box-shadow: var(--shadow-glow);
@@ -777,23 +700,14 @@ input:focus, select:focus, textarea:focus {
   color: var(--text-primary);
   border: 1px solid var(--border-color);
 }
-
-.btn-secondary:hover {
-  background-color: var(--border-color);
-}
-
-.btn-block {
-  width: 100%;
-}
+.btn-secondary:hover { background-color: var(--border-color); }
+.btn-block { width: 100%; }
 
 /* ==========================================================================
    7. SEO TABLES, ACCORDIONS & CONTENT
    ========================================================================== */
 
-.seo-content {
-  margin-top: 4rem;
-}
-
+.seo-content { margin-top: 4rem; }
 .seo-prose h2 {
   font-size: 1.75rem;
   font-weight: 800;
@@ -801,32 +715,25 @@ input:focus, select:focus, textarea:focus {
   margin-bottom: 1rem;
   letter-spacing: -0.02em;
 }
-
 .seo-prose h3 {
   font-size: 1.25rem;
   font-weight: 700;
   margin-top: 1.5rem;
   margin-bottom: 0.75rem;
 }
-
 .seo-prose p {
   color: var(--text-secondary);
   margin-bottom: 1.25rem;
   font-size: 1.05rem;
   line-height: 1.7;
 }
-
 .seo-prose ul, .seo-prose ol {
   margin-left: 1.5rem;
   margin-bottom: 1.5rem;
   color: var(--text-secondary);
 }
+.seo-prose li { margin-bottom: 0.5rem; }
 
-.seo-prose li {
-  margin-bottom: 0.5rem;
-}
-
-/* Formula Highlight Box */
 .formula-box {
   background-color: var(--bg-tertiary);
   border-left: 4px solid var(--accent-primary);
@@ -839,7 +746,6 @@ input:focus, select:focus, textarea:focus {
   overflow-x: auto;
 }
 
-/* Google Snippet Table */
 .table-responsive {
   overflow-x: auto;
   margin: 1.5rem 0 2rem;
@@ -866,15 +772,9 @@ input:focus, select:focus, textarea:focus {
   color: var(--text-primary);
 }
 
-.data-table tr:hover td {
-  background-color: var(--accent-primary-subtle);
-}
+.data-table tr:hover td { background-color: var(--accent-primary-subtle); }
+.data-table tr:last-child td { border-bottom: none; }
 
-.data-table tr:last-child td {
-  border-bottom: none;
-}
-
-/* Accordion FAQ */
 .faq-list {
   display: flex;
   flex-direction: column;
@@ -890,9 +790,7 @@ input:focus, select:focus, textarea:focus {
   transition: border-color var(--transition-fast);
 }
 
-.faq-item:hover {
-  border-color: var(--accent-primary);
-}
+.faq-item:hover { border-color: var(--accent-primary); }
 
 .faq-question {
   width: 100%;
@@ -915,9 +813,7 @@ input:focus, select:focus, textarea:focus {
   flex-shrink: 0;
 }
 
-.faq-item.open .faq-icon {
-  transform: rotate(180deg);
-}
+.faq-item.open .faq-icon { transform: rotate(180deg); }
 
 .faq-answer {
   display: none;
@@ -927,9 +823,7 @@ input:focus, select:focus, textarea:focus {
   line-height: 1.6;
 }
 
-.faq-item.open .faq-answer {
-  display: block;
-}
+.faq-item.open .faq-answer { display: block; }
 
 /* ==========================================================================
    8. FOOTER & TRUST BADGES
@@ -950,15 +844,11 @@ input:focus, select:focus, textarea:focus {
 }
 
 @media (max-width: 900px) {
-  .footer-grid {
-    grid-template-columns: 1fr 1fr;
-  }
+  .footer-grid { grid-template-columns: 1fr 1fr; }
 }
 
 @media (max-width: 600px) {
-  .footer-grid {
-    grid-template-columns: 1fr;
-  }
+  .footer-grid { grid-template-columns: 1fr; }
 }
 
 .footer-col h4 {
@@ -1000,7 +890,7 @@ input:focus, select:focus, textarea:focus {
 
 .trust-badges {
   display: flex;
-  gap: 1.5rem;
+  gap: 1rem;
   align-items: center;
   flex-wrap: wrap;
 }
@@ -1014,10 +904,11 @@ input:focus, select:focus, textarea:focus {
   background: var(--accent-primary-subtle);
   padding: 0.3rem 0.65rem;
   border-radius: var(--radius-full);
+  font-weight: 600;
 }
 
 /* ==========================================================================
-   9. COOKIE CONSENT & TOAST NOTIFICATION
+   9. COOKIE CONSENT & TOAST
    ========================================================================== */
 
 .cookie-banner {
@@ -1060,28 +951,43 @@ input:focus, select:focus, textarea:focus {
   gap: 0.5rem;
   transform: translateX(120%);
   transition: transform var(--transition-normal);
+  font-weight: 600;
 }
 
-.toast.show {
-  transform: translateX(0);
-}
+.toast.show { transform: translateX(0); }
 
 /* ==========================================================================
-   10. PRINT INVOICE STYLES
+   10. PRINT INVOICE A4 SPECIFICATIONS
    ========================================================================== */
+
+@page {
+  size: A4 portrait;
+  margin: 10mm;
+}
 
 @media print {
   body {
     background-color: #ffffff !important;
     color: #000000 !important;
+    font-size: 11pt !important;
   }
   
-  .site-header, .site-footer, .calc-controls, .btn-print, .cookie-banner, .theme-switcher, .toast {
+  .site-header, .site-footer, .calc-controls, .btn-print, .cookie-banner, .theme-switcher, .toast, .mobile-toggle, .seo-content {
     display: none !important;
   }
   
   .main-content {
     padding: 0 !important;
+  }
+  
+  .container, .container-wide {
+    max-width: 100% !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+
+  .invoice-editor-layout {
+    display: block !important;
   }
   
   .invoice-paper {
@@ -1090,5 +996,6 @@ input:focus, select:focus, textarea:focus {
     padding: 0 !important;
     margin: 0 !important;
     max-width: 100% !important;
+    width: 100% !important;
   }
 }

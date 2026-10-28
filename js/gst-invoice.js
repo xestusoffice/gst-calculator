@@ -1,7 +1,7 @@
 /**
- * XESTUS GST Invoice Generator Engine
+ * Indian GST Tax Invoice Generator Engine - Powered by XESTUS Company
  * 100% Indian GST Rule 46 Compliant - Pure In-Browser Execution
- * Zero Server Upload - Physical Leak Proof
+ * Instant PDF Printing & Local Drafts - Physical Leak Proof
  */
 
 (function () {
@@ -44,14 +44,32 @@
   ];
 
   let invoiceItems = [
-    { desc: 'Web Development & UI Architecture Services', hsn: '998314', qty: 1, unit: 'Project', rate: 75000, discount: 0, taxRate: 18 }
+    { desc: 'Web & UI Architecture Consulting Services', hsn: '998314', qty: 1, unit: 'Project', rate: 75000, discount: 0, taxRate: 18 }
   ];
+
+  let customLogoData = '';
 
   function initInvoiceForm() {
     populateStateDropdowns();
+    initDates();
     renderInvoiceRows();
     attachInvoiceEvents();
     calculateInvoice();
+  }
+
+  function initDates() {
+    const today = new Date();
+    const todayStr = today.toISOString().split('T')[0];
+    
+    const dueDate = new Date();
+    dueDate.setDate(dueDate.getDate() + 15);
+    const dueDateStr = dueDate.toISOString().split('T')[0];
+
+    const invDateEl = document.getElementById('inv-date');
+    const invDueDateEl = document.getElementById('inv-due-date');
+
+    if (invDateEl && !invDateEl.value) invDateEl.value = todayStr;
+    if (invDueDateEl && !invDueDateEl.value) invDueDateEl.value = dueDateStr;
   }
 
   function populateStateDropdowns() {
@@ -95,16 +113,16 @@
           <input type="text" class="inv-item-hsn" data-idx="${idx}" value="${window.Xestus.escapeHTML(item.hsn)}" placeholder="HSN/SAC" style="padding:0.4rem;font-size:0.875rem;">
         </td>
         <td style="width:70px;">
-          <input type="number" step="any" class="inv-item-qty" data-idx="${idx}" value="${item.qty}" style="padding:0.4rem;font-size:0.875rem;text-align:right;">
+          <input type="number" step="any" min="0" class="inv-item-qty" data-idx="${idx}" value="${item.qty}" style="padding:0.4rem;font-size:0.875rem;text-align:right;">
         </td>
         <td style="width:75px;">
           <input type="text" class="inv-item-unit" data-idx="${idx}" value="${window.Xestus.escapeHTML(item.unit)}" placeholder="Nos" style="padding:0.4rem;font-size:0.875rem;">
         </td>
         <td style="width:110px;">
-          <input type="number" step="any" class="inv-item-rate" data-idx="${idx}" value="${item.rate}" style="padding:0.4rem;font-size:0.875rem;text-align:right;">
+          <input type="number" step="any" min="0" class="inv-item-rate" data-idx="${idx}" value="${item.rate}" style="padding:0.4rem;font-size:0.875rem;text-align:right;">
         </td>
         <td style="width:70px;">
-          <input type="number" step="any" class="inv-item-disc" data-idx="${idx}" value="${item.discount}" style="padding:0.4rem;font-size:0.875rem;text-align:right;">
+          <input type="number" step="any" min="0" max="100" class="inv-item-disc" data-idx="${idx}" value="${item.discount}" style="padding:0.4rem;font-size:0.875rem;text-align:right;">
         </td>
         <td style="width:85px;">
           <select class="inv-item-tax" data-idx="${idx}" style="padding:0.4rem;font-size:0.875rem;">
@@ -119,7 +137,7 @@
           ₹${total.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
         </td>
         <td style="width:35px;text-align:center;">
-          <button type="button" class="inv-item-remove" data-idx="${idx}" style="color:var(--accent-danger);font-size:1.2rem;cursor:pointer;">&times;</button>
+          <button type="button" class="inv-item-remove" data-idx="${idx}" style="color:var(--accent-danger);font-size:1.2rem;cursor:pointer;" title="Remove Item">&times;</button>
         </td>
       `;
       tbody.appendChild(tr);
@@ -128,7 +146,7 @@
     // Row input bindings
     tbody.querySelectorAll('.inv-item-desc').forEach(el => el.addEventListener('input', e => {
       invoiceItems[e.target.dataset.idx].desc = e.target.value;
-      updatePreview();
+      calculateInvoice();
     }));
     tbody.querySelectorAll('.inv-item-hsn').forEach(el => el.addEventListener('input', e => {
       invoiceItems[e.target.dataset.idx].hsn = e.target.value;
@@ -140,7 +158,7 @@
     }));
     tbody.querySelectorAll('.inv-item-unit').forEach(el => el.addEventListener('input', e => {
       invoiceItems[e.target.dataset.idx].unit = e.target.value;
-      updatePreview();
+      calculateInvoice();
     }));
     tbody.querySelectorAll('.inv-item-rate').forEach(el => el.addEventListener('input', e => {
       invoiceItems[e.target.dataset.idx].rate = parseFloat(e.target.value) || 0;
@@ -197,7 +215,7 @@
       }
 
       // HSN Grouping
-      const hsnKey = item.hsn || 'Other';
+      const hsnKey = item.hsn || '99';
       if (!hsnSummary[hsnKey]) {
         hsnSummary[hsnKey] = { taxable: 0, cgst: 0, sgst: 0, igst: 0, totalTax: 0 };
       }
@@ -246,7 +264,6 @@
     const sellerPan = document.getElementById('inv-seller-pan')?.value || 'AAAAA0000A';
     const sellerAddr = document.getElementById('inv-seller-address')?.value || 'Tech Park, Andheri East, Mumbai, Maharashtra';
     const sellerPhone = document.getElementById('inv-seller-phone')?.value || '+91 98765 43210';
-    const sellerEmail = document.getElementById('inv-seller-email')?.value || 'contact@business.com';
 
     const buyerName = document.getElementById('inv-buyer-name')?.value || 'CLIENT ENTERPRISE PVT LTD';
     const buyerGstin = document.getElementById('inv-buyer-gstin')?.value || '27BBBBB1111B1Z2';
@@ -266,8 +283,8 @@
     const bankName = document.getElementById('inv-bank-name')?.value || 'HDFC Bank';
     const bankAccount = document.getElementById('inv-bank-acc')?.value || '50200012345678';
     const bankIfsc = document.getElementById('inv-bank-ifsc')?.value || 'HDFC0001234';
-    const bankUpi = document.getElementById('inv-bank-upi')?.value || 'xestus@okhdfcbank';
-    const terms = document.getElementById('inv-terms')?.value || '1. Payment due within 15 days from date of invoice.\n2. Goods/Services once sold will not be returned.\n3. Subject to jurisdiction of Mumbai Courts.';
+    const bankUpi = document.getElementById('inv-bank-upi')?.value || 'business@okhdfcbank';
+    const terms = document.getElementById('inv-terms')?.value || '1. Payment due within 15 days from date of invoice.\n2. Please quote invoice number during wire transfer.\n3. Subject to local court jurisdiction.';
 
     let itemsTableRows = '';
     invoiceItems.forEach((it, idx) => {
@@ -314,17 +331,19 @@
 
     preview.innerHTML = `
       <div class="invoice-paper" style="background:#ffffff;color:#0f172a;padding:2rem;border:1px solid #e2e8f0;border-radius:8px;font-family:system-ui,-apple-system,sans-serif;font-size:12px;line-height:1.4;box-shadow:0 4px 6px rgba(0,0,0,0.05);max-width:800px;margin:0 auto;">
-        <!-- Header -->
+        
+        <!-- Header & Branding -->
         <div style="display:flex;justify-content:space-between;align-items:flex-start;border-bottom:2px solid #059669;padding-bottom:1rem;margin-bottom:1rem;">
           <div>
+            ${customLogoData ? `<img src="${customLogoData}" alt="Company Logo" style="max-height:50px;max-width:160px;margin-bottom:6px;display:block;">` : ''}
             <div style="font-size:1.4rem;font-weight:800;color:#059669;letter-spacing:-0.02em;">${window.Xestus.escapeHTML(sellerName)}</div>
             <div style="color:#475569;margin-top:2px;">${window.Xestus.escapeHTML(sellerAddr)}</div>
             <div style="margin-top:4px;"><strong>GSTIN:</strong> ${window.Xestus.escapeHTML(sellerGstin)} | <strong>PAN:</strong> ${window.Xestus.escapeHTML(sellerPan)}</div>
-            <div><strong>State:</strong> ${sellerStateName} (${sellerStateCode}) | <strong>Contact:</strong> ${window.Xestus.escapeHTML(sellerPhone)}</div>
+            <div><strong>State:</strong> ${sellerStateName} (${sellerStateCode}) | <strong>Phone:</strong> ${window.Xestus.escapeHTML(sellerPhone)}</div>
           </div>
           <div style="text-align:right;">
             <div style="font-size:1.3rem;font-weight:800;color:#1e293b;text-transform:uppercase;">TAX INVOICE</div>
-            <div style="font-size:11px;color:#64748b;margin-bottom:4px;">(Original for Recipient)</div>
+            <div style="font-size:10px;color:#64748b;margin-bottom:4px;">(Indian GST Rule 46 Compliant)</div>
             <div><strong>Invoice No:</strong> ${window.Xestus.escapeHTML(invNumber)}</div>
             <div><strong>Date:</strong> ${invDate}</div>
             ${invDueDate ? `<div><strong>Due Date:</strong> ${invDueDate}</div>` : ''}
@@ -333,15 +352,15 @@
           </div>
         </div>
 
-        <!-- Bill To -->
+        <!-- Bill To Details -->
         <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:4px;padding:0.75rem;margin-bottom:1rem;">
-          <div style="font-size:11px;font-weight:700;color:#059669;text-transform:uppercase;margin-bottom:4px;">Details of Receiver (Billed To):</div>
+          <div style="font-size:11px;font-weight:700;color:#059669;text-transform:uppercase;margin-bottom:4px;">Billed To (Recipient Details):</div>
           <div style="font-size:13px;font-weight:700;">${window.Xestus.escapeHTML(buyerName)}</div>
           <div>${window.Xestus.escapeHTML(buyerAddr)}</div>
           <div><strong>GSTIN/UIN:</strong> ${window.Xestus.escapeHTML(buyerGstin)} | <strong>PAN:</strong> ${window.Xestus.escapeHTML(buyerPan)}</div>
         </div>
 
-        <!-- Line Items -->
+        <!-- Line Items Table -->
         <table style="width:100%;border-collapse:collapse;margin-bottom:1rem;">
           <thead>
             <tr style="background:#f1f5f9;color:#334155;font-weight:700;">
@@ -366,17 +385,17 @@
           <div>
             <!-- Bank Details -->
             <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:4px;padding:0.75rem;margin-bottom:0.75rem;">
-              <div style="font-weight:700;color:#059669;margin-bottom:4px;font-size:11px;text-transform:uppercase;">Bank Account Details for Payment:</div>
+              <div style="font-weight:700;color:#059669;margin-bottom:4px;font-size:11px;text-transform:uppercase;">Bank Payment Coordinates:</div>
               <div><strong>Bank Name:</strong> ${window.Xestus.escapeHTML(bankName)}</div>
-              <div><strong>A/C No:</strong> ${window.Xestus.escapeHTML(bankAccount)}</div>
+              <div><strong>Account No:</strong> ${window.Xestus.escapeHTML(bankAccount)}</div>
               <div><strong>IFSC Code:</strong> ${window.Xestus.escapeHTML(bankIfsc)}</div>
               ${bankUpi ? `<div><strong>UPI ID:</strong> ${window.Xestus.escapeHTML(bankUpi)}</div>` : ''}
             </div>
 
             <!-- Amount in words -->
-            <div style="font-size:11px;padding:0.4rem;background:#f1f5f9;border-left:3px solid #059669;border-radius:2px;">
+            <div style="font-size:11px;padding:0.5rem;background:#f1f5f9;border-left:3px solid #059669;border-radius:2px;">
               <strong>Amount in Words:</strong><br>
-              <span style="font-weight:600;">${wordsTotal}</span>
+              <span style="font-weight:700;color:#0f172a;">${wordsTotal}</span>
             </div>
           </div>
 
@@ -445,6 +464,10 @@
             <div style="border-top:1px solid #94a3b8;font-size:10px;color:#475569;padding-top:4px;">Authorised Signatory</div>
           </div>
         </div>
+
+        <div style="text-align:center;font-size:9px;color:#94a3b8;margin-top:1.25rem;">
+          Created with GST Calculator & Tax Suite • Powered by XESTUS Company (100% In-Browser Privacy)
+        </div>
       </div>
     `;
   }
@@ -454,7 +477,7 @@
     const addItemBtn = document.getElementById('btn-inv-add-item');
     if (addItemBtn) {
       addItemBtn.addEventListener('click', () => {
-        invoiceItems.push({ desc: 'Consulting Services', hsn: '9983', qty: 1, unit: 'Nos', rate: 10000, discount: 0, taxRate: 18 });
+        invoiceItems.push({ desc: 'Professional Services', hsn: '9983', qty: 1, unit: 'Nos', rate: 10000, discount: 0, taxRate: 18 });
         renderInvoiceRows();
         calculateInvoice();
       });
@@ -476,6 +499,23 @@
         el.addEventListener('change', calculateInvoice);
       }
     });
+
+    // Optional Logo Upload
+    const logoInput = document.getElementById('inv-logo-input');
+    if (logoInput) {
+      logoInput.addEventListener('change', (e) => {
+        const file = e.target.files[0];
+        if (file) {
+          const reader = new FileReader();
+          reader.onload = (re) => {
+            customLogoData = re.target.result;
+            calculateInvoice();
+            window.Xestus.toast('Logo loaded onto invoice preview!');
+          };
+          reader.readAsDataURL(file);
+        }
+      });
+    }
 
     // Print / PDF Button
     const printBtn = document.getElementById('btn-inv-print');
@@ -515,7 +555,7 @@
         };
         try {
           localStorage.setItem('xestus_invoice_draft', JSON.stringify(draftData));
-          window.Xestus.toast('Invoice draft saved securely to browser!');
+          window.Xestus.toast('Invoice draft saved securely to browser memory!');
         } catch (e) {
           window.Xestus.toast('Unable to save draft.');
         }
