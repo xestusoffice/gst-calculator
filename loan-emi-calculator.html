@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self' https: data: 'unsafe-inline'; script-src 'self' 'unsafe-inline' https:; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; connect-src 'self';">
+  <meta http-equiv="X-Content-Type-Options" content="nosniff">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+
+  <title>Loan EMI &amp; Prepayment Calculator India | Home, Car &amp; Personal Loan Amortization</title>
+  <meta name="description" content="Calculate monthly loan EMI and simulate prepayment interest savings. Interactive yearly amortization schedule, CSV export, and Home/Car/Personal loan presets. 100% private.">
+  <link rel="canonical" href="https://gst.xestus.in/loan-emi-calculator.html">
+
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://gst.xestus.in/loan-emi-calculator.html">
+  <meta property="og:title" content="Loan EMI &amp; Prepayment Calculator | XESTUS Suite">
+  <meta property="og:description" content="Calculate monthly EMI and discover how prepayments shave years off your loan tenure and save lakhs in interest.">
+  <meta property="og:image" content="https://gst.xestus.in/assets/icons/icon-512.svg">
+
+  <link rel="icon" type="image/svg+xml" href="/assets/icons/favicon.svg">
+  <link rel="apple-touch-icon" href="/assets/icons/icon-192.svg">
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#10B981">
+
+  <link rel="stylesheet" href="/css/style.css">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://gst.xestus.in/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Loan EMI Calculator",
+            "item": "https://gst.xestus.in/loan-emi-calculator.html"
+          }
+        ]
+      },
+      {
+        "@type": "WebApplication",
+        "name": "Loan EMI & Prepayment Calculator",
+        "applicationCategory": "FinanceApplication",
+        "operatingSystem": "All modern browsers",
+        "description": "Calculates monthly EMI, interest savings from loan prepayments, and generates full amortization schedules.",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "INR"
+        }
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "How does prepayment reduce home loan interest in India?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Whenever you make a prepayment (either lump sum or extra monthly amount), the entire prepayment amount is directly deducted from the outstanding loan principal. Because daily reducing interest is calculated exclusively on the remaining principal, future interest liability drops significantly, reducing either your tenure or monthly EMI."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Are there prepayment penalty charges on home loans in India?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "According to Reserve Bank of India (RBI) regulations, banks and Housing Finance Companies (HFCs) are strictly prohibited from charging any prepayment penalty or foreclosure fees on floating-rate home loans availed by individual borrowers."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What is the formula used to calculate EMI?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "The standard mathematical formula is: EMI = [P × r × (1 + r)^n] ÷ [(1 + r)^n - 1], where P is loan principal, r is monthly interest rate (annual rate ÷ 12 ÷ 100), and n is loan tenure in months."
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+
+  <!-- Site Header -->
+  <header class="site-header">
+    <div class="container nav-container">
+      <a href="/" class="brand-logo" aria-label="XESTUS Home">
+        <img src="/assets/icons/favicon.svg" alt="XESTUS Emblem" class="brand-icon" width="36" height="36">
+        <span>XESTUS</span>
+        <span class="brand-badge">Tax Suite</span>
+      </a>
+
+      <nav aria-label="Main Navigation">
+        <ul class="nav-links">
+          <li><a href="/gst-calculator.html" class="nav-link">GST Calculator</a></li>
+          <li><a href="/gst-invoice-generator.html" class="nav-link">Invoice Generator</a></li>
+          <li><a href="/income-tax-calculator.html" class="nav-link">Income Tax FY 26-27</a></li>
+          <li><a href="/loan-emi-calculator.html" class="nav-link active">Loan EMI</a></li>
+          <li><a href="/sip-calculator.html" class="nav-link">SIP Planner</a></li>
+          <li><a href="/about.html" class="nav-link">About</a></li>
+        </ul>
+      </nav>
+
+      <div class="nav-actions">
+        <div class="theme-switcher" role="group" aria-label="Display theme selection">
+          <button type="button" class="theme-btn active" data-set-theme="dark" title="Night Mode (Dark)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></button>
+          <button type="button" class="theme-btn" data-set-theme="light" title="Day Mode (Light)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg></button>
+          <button type="button" class="theme-btn" data-set-theme="ochre" title="Eye Protect (Warm Ochre)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></button>
+        </div>
+        <button class="mobile-toggle" aria-label="Toggle Navigation Menu">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="main-content">
+    <div class="container">
+      
+      <!-- Page Header -->
+      <div style="margin-bottom:2rem;">
+        <nav aria-label="Breadcrumb" style="font-size:0.85rem;color:var(--text-muted);margin-bottom:0.75rem;">
+          <a href="/">Home</a> &gt; <span style="color:var(--text-secondary);">Loan EMI Calculator</span>
+        </nav>
+        <h1 style="font-size:clamp(1.8rem, 3.5vw, 2.5rem);font-weight:800;letter-spacing:-0.02em;">
+          Loan EMI &amp; Prepayment Calculator
+        </h1>
+        <p style="color:var(--text-secondary);font-size:1.05rem;max-width:760px;margin-top:0.35rem;">
+          Calculate monthly installments for home, car, and personal loans. Simulate prepayments to calculate exact interest and tenure saved.
+        </p>
+      </div>
+
+      <!-- Quick Loan Type Presets -->
+      <div style="display:flex;gap:0.75rem;margin-bottom:1.5rem;flex-wrap:wrap;">
+        <button type="button" class="chip-btn active" data-loan-type="home">Home Loan (8.5% • 20Y)</button>
+        <button type="button" class="chip-btn" data-loan-type="car">Car Loan (9.25% • 5Y)</button>
+        <button type="button" class="chip-btn" data-loan-type="personal">Personal Loan (13.5% • 3Y)</button>
+      </div>
+
+      <!-- Calculator Workspace -->
+      <div class="calc-workspace">
+        
+        <!-- Controls Column -->
+        <div class="card">
+          <!-- Loan Amount -->
+          <div class="form-group">
+            <label class="form-label" for="loan-amount">
+              <span>Loan Amount (Principal)</span>
+              <span class="form-hint">Type or drag slider</span>
+            </label>
+            <div class="input-currency-wrapper">
+              <span class="input-currency-symbol">₹</span>
+              <input type="number" id="loan-amount" class="input-currency" value="5000000" step="50000">
+            </div>
+            <div class="range-slider-wrapper">
+              <input type="range" id="loan-slider-amount" class="range-slider" min="100000" max="20000000" step="50000" value="5000000">
+              <div class="slider-labels">
+                <span>₹1 Lakh</span>
+                <span>₹1 Crore</span>
+                <span>₹2 Crore</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Interest Rate -->
+          <div class="form-group">
+            <label class="form-label" for="loan-rate">
+              <span>Interest Rate (% per annum)</span>
+              <span class="form-hint">Reducing balance rate</span>
+            </label>
+            <input type="number" id="loan-rate" value="8.5" step="0.05" min="1" max="30" style="font-size:1.15rem;font-weight:700;">
+            <div class="range-slider-wrapper">
+              <input type="range" id="loan-slider-rate" class="range-slider" min="5" max="25" step="0.1" value="8.5">
+              <div class="slider-labels">
+                <span>5%</span>
+                <span>15%</span>
+                <span>25%</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Loan Tenure -->
+          <div class="form-group">
+            <label class="form-label" for="loan-tenure">
+              <span>Loan Tenure (Years)</span>
+              <span class="form-hint">Number of years</span>
+            </label>
+            <input type="number" id="loan-tenure" value="20" min="1" max="40" style="font-size:1.15rem;font-weight:700;">
+            <div class="range-slider-wrapper">
+              <input type="range" id="loan-slider-tenure" class="range-slider" min="1" max="35" step="1" value="20">
+              <div class="slider-labels">
+                <span>1 Year</span>
+                <span>15 Years</span>
+                <span>35 Years</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Prepayment Simulator Section -->
+          <div style="margin-top:2rem;padding-top:1.5rem;border-top:1px solid var(--border-color);">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;">
+              <h2 style="font-size:1.15rem;font-weight:700;">Prepayment Savings Simulator</h2>
+              <span class="card-badge" style="background:rgba(16,185,129,0.15);color:var(--accent-primary);">Smart Feature</span>
+            </div>
+            <p style="font-size:0.875rem;color:var(--text-secondary);margin-bottom:1.25rem;">
+              See how making extra payments helps you save lakhs in total interest and become debt-free years earlier.
+            </p>
+
+            <div class="grid grid-2" style="gap:1rem;">
+              <div class="form-group">
+                <label class="form-label" for="prepay-lump-sum">One-Time Lumpsum Prepayment (₹)</label>
+                <div class="input-currency-wrapper">
+                  <span class="input-currency-symbol">₹</span>
+                  <input type="number" id="prepay-lump-sum" class="input-currency" value="200000" step="10000" style="font-size:1rem;padding-left:2rem;">
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="prepay-lump-year">Paid at End of Year</label>
+                <input type="number" id="prepay-lump-year" value="2" min="1" max="35">
+              </div>
+            </div>
+
+            <div class="form-group" style="margin-bottom:0;">
+              <label class="form-label" for="prepay-extra-monthly">Or Extra Monthly Prepayment (₹)</label>
+              <div class="input-currency-wrapper">
+                <span class="input-currency-symbol">₹</span>
+                <input type="number" id="prepay-extra-monthly" class="input-currency" value="0" step="1000" style="font-size:1rem;padding-left:2rem;">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Results Panel Column -->
+        <div class="results-panel">
+          <div class="result-hero">
+            <div class="result-hero-label">Monthly Loan EMI</div>
+            <div class="result-hero-amount font-mono" id="res-loan-emi">₹43,391</div>
+            <span class="card-badge" style="margin-top:0.5rem;display:inline-block;">Payable Every Month</span>
+          </div>
+
+          <div style="margin-bottom:1.5rem;">
+            <div class="breakdown-row">
+              <span class="breakdown-label">Principal Loan Amount:</span>
+              <span class="breakdown-value font-mono" id="res-loan-principal">₹50,00,000</span>
+            </div>
+            <div class="breakdown-row">
+              <span class="breakdown-label">Total Interest Payable:</span>
+              <span class="breakdown-value font-mono" style="color:#3B82F6;" id="res-loan-interest">₹54,13,879</span>
+            </div>
+            <div class="breakdown-row">
+              <span class="breakdown-label">Total Payment (Principal + Int):</span>
+              <span class="breakdown-value font-mono" id="res-loan-total">₹1,04,13,879</span>
+            </div>
+          </div>
+
+          <!-- Prepayment Savings Highlight Card -->
+          <div id="prepay-savings-card" style="background:var(--accent-primary-subtle);border:1px solid rgba(16,185,129,0.3);border-radius:var(--radius-md);padding:1rem;margin-bottom:1.5rem;">
+            <div style="font-size:0.75rem;font-weight:700;color:var(--accent-primary);text-transform:uppercase;letter-spacing:0.05em;margin-bottom:0.25rem;">
+              Prepayment Impact
+            </div>
+            <div class="breakdown-row" style="border:none;padding:0.25rem 0;">
+              <span style="font-size:0.875rem;">Interest Saved:</span>
+              <span class="font-mono" style="color:var(--accent-primary);font-weight:800;font-size:1.1rem;" id="res-prepay-saved-interest">₹0</span>
+            </div>
+            <div class="breakdown-row" style="border:none;padding:0.25rem 0;">
+              <span style="font-size:0.875rem;">Loan Tenure Reduced By:</span>
+              <span class="font-mono" style="font-weight:700;" id="res-prepay-saved-tenure">0 Months</span>
+            </div>
+          </div>
+
+          <!-- Donut Chart -->
+          <div id="loan-chart-container" style="margin-bottom:1rem;"></div>
+        </div>
+
+      </div>
+
+      <!-- Amortization Schedule Table -->
+      <section class="section-spacer">
+        <div class="card">
+          <div class="card-header">
+            <div>
+              <h2 style="font-size:1.35rem;font-weight:700;">Loan Amortization Schedule (Year-by-Year)</h2>
+              <p style="color:var(--text-secondary);font-size:0.875rem;">Detailed schedule tracking opening balance, principal repayment, interest, and remaining balance.</p>
+            </div>
+            <button type="button" id="btn-export-amortization-csv" class="btn btn-secondary" style="padding:0.4rem 0.85rem;font-size:0.85rem;">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              Export CSV
+            </button>
+          </div>
+
+          <div class="table-responsive">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th style="text-align:center;">Year</th>
+                  <th>Opening Principal</th>
+                  <th>Principal Paid</th>
+                  <th>Interest Paid</th>
+                  <th>Total Payment</th>
+                  <th>Closing Balance</th>
+                </tr>
+              </thead>
+              <tbody id="amortization-table-body"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- Programmatic SEO Guide & Google Position #0 Snippet Table -->
+      <section class="seo-content seo-prose">
+        <h2>Mathematical Mechanics of Equated Monthly Installment (EMI)</h2>
+        <p>
+          An Equated Monthly Installment (EMI) is a fixed payment amount made by a borrower to a lender on a specified date of each calendar month. EMIs are applied to both interest and principal each month so that over a specified number of years, the loan is fully paid off.
+        </p>
+        <div class="formula-box">
+          EMI = [P &times; r &times; (1 + r)^n] / [(1 + r)^n - 1]
+        </div>
+        <p>Where:</p>
+        <ul>
+          <li><strong>P:</strong> Principal Loan Amount.</li>
+          <li><strong>r:</strong> Monthly Interest Rate = (Annual Interest Rate &divide; 12) &divide; 100.</li>
+          <li><strong>n:</strong> Loan Tenure in Months = Number of Years &times; 12.</li>
+        </ul>
+
+        <!-- Position #0 Snippet Table -->
+        <h2>Home Loan EMI Benchmark Comparison (8.5% Interest Rate)</h2>
+        <p>Reference table showing monthly EMI and total interest for common home loan amounts in India over a 20-year tenure:</p>
+        
+        <div class="table-responsive">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Loan Amount</th>
+                <th>Monthly EMI (20 Yrs @ 8.5%)</th>
+                <th>Total Interest Payable</th>
+                <th>Total Repayment Amount</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>₹25 Lakh</strong></td>
+                <td class="font-mono">₹21,696</td>
+                <td class="font-mono">₹27,06,939</td>
+                <td class="font-mono">₹52,06,939</td>
+              </tr>
+              <tr>
+                <td><strong>₹50 Lakh</strong></td>
+                <td class="font-mono">₹43,391</td>
+                <td class="font-mono">₹54,13,879</td>
+                <td class="font-mono">₹1,04,13,879</td>
+              </tr>
+              <tr>
+                <td><strong>₹75 Lakh</strong></td>
+                <td class="font-mono">₹65,087</td>
+                <td class="font-mono">₹81,20,818</td>
+                <td class="font-mono">₹1,56,20,818</td>
+              </tr>
+              <tr>
+                <td><strong>₹1 Crore</strong></td>
+                <td class="font-mono">₹86,782</td>
+                <td class="font-mono">₹1,08,27,758</td>
+                <td class="font-mono">₹2,08,27,758</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- FAQ Section -->
+        <h2>Frequently Asked Questions About Loan Prepayments</h2>
+        <div class="faq-list">
+          <div class="faq-item">
+            <button type="button" class="faq-question">
+              <span>Is it better to reduce loan tenure or reduce monthly EMI when making a prepayment?</span>
+              <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="faq-answer">
+              <p>Choosing to <strong>reduce tenure</strong> saves significantly more interest over the long term. Because the compounding period of the remaining principal is shortened, interest accumulates for fewer years. However, if you are experiencing temporary cash-flow stress, opting to reduce monthly EMI can provide immediate monthly liquidity relief.</p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button type="button" class="faq-question">
+              <span>What is the impact of paying just 1 extra EMI every year?</span>
+              <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="faq-answer">
+              <p>Paying just one extra EMI per year (13 payments instead of 12) on a 20-year home loan at 8.5% interest can shorten your entire loan tenure by approximately 4.5 to 5 years and save upwards of 20% to 25% of your total interest liability!</p>
+            </div>
+          </div>
+        </div>
+
+      </section>
+
+    </div>
+  </main>
+
+  <!-- Site Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <div class="brand-logo" style="margin-bottom:1rem;">
+            <img src="/assets/icons/favicon.svg" alt="XESTUS Logo" width="32" height="32">
+            <span>XESTUS Suite</span>
+          </div>
+          <p style="color:var(--text-secondary);font-size:0.9rem;">India's privacy-focused financial computation platform. 100% in-browser computation.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Calculators</h4>
+          <ul class="footer-links">
+            <li><a href="/gst-calculator.html">GST Calculator India</a></li>
+            <li><a href="/gst-invoice-generator.html">GST Invoice Generator</a></li>
+            <li><a href="/income-tax-calculator.html">Old vs New Tax Regime</a></li>
+            <li><a href="/loan-emi-calculator.html">Loan EMI & Prepayment</a></li>
+            <li><a href="/sip-calculator.html">SIP Wealth Planner</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Trust & Editorial</h4>
+          <ul class="footer-links">
+            <li><a href="/about.html">About Us</a></li>
+            <li><a href="/contact.html">Contact Us</a></li>
+            <li><a href="/privacy-policy.html">Privacy Policy</a></li>
+            <li><a href="/terms.html">Terms of Service</a></li>
+            <li><a href="/disclaimer.html">Disclaimer</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Support</h4>
+          <p style="color:var(--text-secondary);font-size:0.9rem;">Editorial Desk:</p>
+          <p style="font-family:var(--font-mono);font-size:0.875rem;color:var(--accent-primary);"><a href="mailto:xestus.office@gmail.com">xestus.office@gmail.com</a></p>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div>&copy; 2026 XESTUS Finance & Tax Suite.</div>
+        <div style="display:flex;gap:1.5rem;">
+          <a href="/privacy-policy.html">Privacy</a>
+          <a href="/terms.html">Terms</a>
+          <a href="/disclaimer.html">Disclaimer</a>
+          <a href="/sitemap.xml">Sitemap</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <div id="cookie-consent-banner" class="cookie-banner">
+    <div style="font-weight:700;font-size:1.05rem;color:var(--text-primary);margin-bottom:0.4rem;">Privacy &amp; Cookie Preferences</div>
+    <p style="font-size:0.875rem;color:var(--text-secondary);line-height:1.5;margin-bottom:1.25rem;">We use minimal cookies for theme persistence. Calculations run strictly on your local browser.</p>
+    <div style="display:flex;gap:0.75rem;justify-content:flex-end;">
+      <button type="button" id="cookie-reject-all" class="btn btn-secondary" style="padding:0.4rem 0.9rem;font-size:0.85rem;">Essential Only</button>
+      <button type="button" id="cookie-accept-all" class="btn btn-primary" style="padding:0.4rem 1.1rem;font-size:0.85rem;">Accept Preferences</button>
+    </div>
+  </div>
+
+  <script src="/js/main.js"></script>
+  <script src="/js/chart-renderer.js"></script>
+  <script src="/js/loan-emi.js"></script>
+</body>
+</html>

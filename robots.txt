@@ -1,0 +1,20 @@
+# robots.txt for XESTUS Finance & Tax Suite
+# Allow all search engine crawlers and AdSense verification bots
+
+User-agent: *
+Allow: /
+
+# Google AdSense Bots
+User-agent: Mediapartners-Google
+Allow: /
+
+User-agent: Googlebot
+Allow: /
+
+User-agent: Googlebot-Image
+Allow: /assets/
+
+User-agent: Bingbot
+Allow: /
+
+Sitemap: https://gst.xestus.in/sitemap.xml

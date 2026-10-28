@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self' https: data: 'unsafe-inline'; script-src 'self' 'unsafe-inline' https:; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; connect-src 'self';">
+  <meta http-equiv="X-Content-Type-Options" content="nosniff">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+
+  <title>GST Calculator India (2026) | Inclusive & Exclusive Tax Calculator with CGST, SGST, IGST</title>
+  <meta name="description" content="Calculate GST in India online for free. Instant Inclusive and Exclusive GST calculation for 5%, 12%, 18%, 28% slabs. Features CGST/SGST/IGST breakdown and multi-item bill calculator.">
+  <link rel="canonical" href="https://gst.xestus.in/gst-calculator.html">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://gst.xestus.in/gst-calculator.html">
+  <meta property="og:title" content="GST Calculator India (2026) | Instant Inclusive & Exclusive Breakdown">
+  <meta property="og:description" content="Accurate online GST calculator conforming to CBIC standards. Compute CGST, SGST, and IGST with interactive visual breakdown.">
+  <meta property="og:image" content="https://gst.xestus.in/assets/icons/icon-512.svg">
+
+  <link rel="icon" type="image/svg+xml" href="/assets/icons/favicon.svg">
+  <link rel="apple-touch-icon" href="/assets/icons/icon-192.svg">
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#10B981">
+
+  <link rel="stylesheet" href="/css/style.css">
+
+  <!-- Multi-Entity JSON-LD Schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://gst.xestus.in/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "GST Calculator",
+            "item": "https://gst.xestus.in/gst-calculator.html"
+          }
+        ]
+      },
+      {
+        "@type": "WebApplication",
+        "name": "GST Calculator India",
+        "applicationCategory": "BusinessApplication",
+        "operatingSystem": "All modern browsers",
+        "description": "Calculates Goods and Services Tax (GST) in India with Inclusive and Exclusive options, custom tax rates, and CGST, SGST, and IGST splits.",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "INR"
+        }
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "What is the difference between GST Inclusive and GST Exclusive amount?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "A GST Exclusive price is the raw base cost of a product or service without tax. GST is added on top of it. A GST Inclusive price is the final retail price that already contains the tax component."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How is GST calculated on goods in India?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "To add GST (Exclusive): GST Amount = (Base Amount × GST%) ÷ 100. To extract GST (Inclusive): GST Amount = Gross Amount - [Gross Amount × {100 ÷ (100 + GST%)}]."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "When should IGST be charged instead of CGST and SGST?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "IGST (Integrated GST) is charged when a transaction occurs between two different states (Interstate). CGST (Central GST) and SGST (State GST) are charged in equal 50:50 parts when the supplier and buyer are in the same state (Intrastate)."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What are the primary GST tax slabs in India?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "The primary GST tax slabs under the Indian GST regime are 0% (Exempt), 5% (Essential items), 12% (Standard goods/services), 18% (Standard services and commercial goods), and 28% (Luxury and sin goods)."
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+
+  <!-- Site Header -->
+  <header class="site-header">
+    <div class="container nav-container">
+      <a href="/" class="brand-logo" aria-label="XESTUS Home">
+        <img src="/assets/icons/favicon.svg" alt="XESTUS Emblem" class="brand-icon" width="36" height="36">
+        <span>XESTUS</span>
+        <span class="brand-badge">Tax Suite</span>
+      </a>
+
+      <nav aria-label="Main Navigation">
+        <ul class="nav-links">
+          <li><a href="/gst-calculator.html" class="nav-link active">GST Calculator</a></li>
+          <li><a href="/gst-invoice-generator.html" class="nav-link">Invoice Generator</a></li>
+          <li><a href="/income-tax-calculator.html" class="nav-link">Income Tax FY 26-27</a></li>
+          <li><a href="/loan-emi-calculator.html" class="nav-link">Loan EMI</a></li>
+          <li><a href="/sip-calculator.html" class="nav-link">SIP Planner</a></li>
+          <li><a href="/about.html" class="nav-link">About</a></li>
+        </ul>
+      </nav>
+
+      <div class="nav-actions">
+        <div class="theme-switcher" role="group" aria-label="Display theme selection">
+          <button type="button" class="theme-btn active" data-set-theme="dark" title="Night Mode (Dark)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></button>
+          <button type="button" class="theme-btn" data-set-theme="light" title="Day Mode (Light)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg></button>
+          <button type="button" class="theme-btn" data-set-theme="ochre" title="Eye Protect (Warm Ochre)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></button>
+        </div>
+        <button class="mobile-toggle" aria-label="Toggle Navigation Menu">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="main-content">
+    <div class="container">
+      
+      <!-- Page Header -->
+      <div style="margin-bottom:2rem;">
+        <nav aria-label="Breadcrumb" style="font-size:0.85rem;color:var(--text-muted);margin-bottom:0.75rem;">
+          <a href="/">Home</a> &gt; <span style="color:var(--text-secondary);">GST Calculator</span>
+        </nav>
+        <h1 style="font-size:clamp(1.8rem, 3.5vw, 2.5rem);font-weight:800;letter-spacing:-0.02em;">
+          Online GST Calculator (India)
+        </h1>
+        <p style="color:var(--text-secondary);font-size:1.05rem;max-width:760px;margin-top:0.35rem;">
+          Calculate GST Inclusive & Exclusive amounts instantly. Get exact CGST, SGST, and IGST breakdowns for official CBIC tax rates.
+        </p>
+      </div>
+
+      <!-- Calculator Workspace -->
+      <div class="calc-workspace">
+        
+        <!-- Controls Column -->
+        <div class="card">
+          <!-- Mode Tabs: Exclusive vs Inclusive -->
+          <div class="form-group">
+            <label class="form-label">Calculation Mode</label>
+            <div class="segmented-control" role="tablist">
+              <button type="button" class="active" data-gst-mode="exclusive" role="tab" aria-selected="true">GST Exclusive (Add GST)</button>
+              <button type="button" data-gst-mode="inclusive" role="tab" aria-selected="false">GST Inclusive (Remove GST)</button>
+            </div>
+          </div>
+
+          <!-- Base Amount Input -->
+          <div class="form-group">
+            <label class="form-label" for="gst-amount">
+              <span>Amount (₹)</span>
+              <span class="form-hint">Type or use slider</span>
+            </label>
+            <div class="input-currency-wrapper">
+              <span class="input-currency-symbol">₹</span>
+              <input type="number" id="gst-amount" class="input-currency" value="10000" min="0" step="any">
+            </div>
+            <div class="range-slider-wrapper">
+              <input type="range" id="gst-slider" class="range-slider" min="500" max="500000" step="500" value="10000" aria-label="Amount range slider">
+              <div class="slider-labels">
+                <span>₹500</span>
+                <span>₹2,50,000</span>
+                <span>₹5,00,000</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Quick Preset Chips -->
+          <div class="form-group">
+            <label class="form-label">Quick Amount Presets</label>
+            <div class="chip-group">
+              <button type="button" class="chip-btn" data-amount-chip="1000">₹1,000</button>
+              <button type="button" class="chip-btn" data-amount-chip="5000">₹5,000</button>
+              <button type="button" class="chip-btn active" data-amount-chip="10000">₹10,000</button>
+              <button type="button" class="chip-btn" data-amount-chip="25000">₹25,000</button>
+              <button type="button" class="chip-btn" data-amount-chip="50000">₹50,000</button>
+              <button type="button" class="chip-btn" data-amount-chip="100000">₹1,00,000</button>
+            </div>
+          </div>
+
+          <!-- GST Rate Slabs -->
+          <div class="form-group">
+            <label class="form-label">Select GST Tax Rate (%)</label>
+            <div class="chip-group" style="margin-bottom:0.75rem;">
+              <button type="button" class="chip-btn gst-slab-btn" data-rate="0">0%</button>
+              <button type="button" class="chip-btn gst-slab-btn" data-rate="5">5%</button>
+              <button type="button" class="chip-btn gst-slab-btn" data-rate="12">12%</button>
+              <button type="button" class="chip-btn gst-slab-btn active" data-rate="18">18%</button>
+              <button type="button" class="chip-btn gst-slab-btn" data-rate="28">28%</button>
+            </div>
+            <div style="display:flex;align-items:center;gap:0.75rem;">
+              <input type="number" id="gst-custom-rate" placeholder="Custom rate (e.g. 3, 0.25)" style="max-width:200px;font-size:0.9rem;" min="0" max="100" step="0.01">
+              <span style="font-size:0.85rem;color:var(--text-muted);">(for Gold / Special Rates)</span>
+            </div>
+          </div>
+
+          <!-- Supply Type: Intrastate vs Interstate -->
+          <div class="form-group">
+            <label class="form-label">Transaction Jurisdiction</label>
+            <div class="segmented-control">
+              <button type="button" class="active" data-gst-supply="intra">Intrastate (CGST + SGST)</button>
+              <button type="button" data-gst-supply="inter">Interstate (IGST)</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Results Panel Column -->
+        <div class="results-panel">
+          <div class="result-hero">
+            <div class="result-hero-label">Gross Total (Final Amount)</div>
+            <div class="result-hero-amount font-mono" id="res-gross-amount">₹11,800.00</div>
+            <span class="card-badge" id="res-rate-badge" style="margin-top:0.5rem;display:inline-block;">18% GST</span>
+          </div>
+
+          <div style="margin-bottom:1.5rem;">
+            <div class="breakdown-row">
+              <span class="breakdown-label">Net (Base) Price:</span>
+              <span class="breakdown-value font-mono" id="res-net-amount">₹10,000.00</span>
+            </div>
+            <div class="breakdown-row">
+              <span class="breakdown-label">Total GST Amount:</span>
+              <span class="breakdown-value font-mono" style="color:var(--accent-primary);" id="res-total-gst">₹1,800.00</span>
+            </div>
+            <div class="breakdown-row" id="res-cgst-row">
+              <span class="breakdown-label">CGST (Central):</span>
+              <span class="breakdown-value font-mono" id="res-cgst">₹900.00</span>
+            </div>
+            <div class="breakdown-row" id="res-sgst-row">
+              <span class="breakdown-label">SGST (State):</span>
+              <span class="breakdown-value font-mono" id="res-sgst">₹900.00</span>
+            </div>
+            <div class="breakdown-row" id="res-igst-row" style="display:none;">
+              <span class="breakdown-label">IGST (Integrated):</span>
+              <span class="breakdown-value font-mono" id="res-igst">₹1,800.00</span>
+            </div>
+          </div>
+
+          <!-- Visual Donut Chart Container -->
+          <div id="gst-chart-container" style="margin-bottom:1.5rem;"></div>
+
+          <button type="button" id="btn-copy-gst" class="btn btn-secondary btn-block">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+            Copy Tax Breakdown
+          </button>
+        </div>
+      </div>
+
+      <!-- Multi-Item Bill Calculator Workspace -->
+      <section class="section-spacer">
+        <div class="card">
+          <div class="card-header">
+            <div>
+              <h2 style="font-size:1.35rem;font-weight:700;">Multi-Item Quick GST Bill Calculator</h2>
+              <p style="color:var(--text-secondary);font-size:0.875rem;">Add multiple goods or services with different GST rates to calculate the complete composite bill.</p>
+            </div>
+            <button type="button" id="btn-add-multi-item" class="btn btn-primary" style="padding:0.4rem 0.8rem;font-size:0.85rem;">
+              + Add Item
+            </button>
+          </div>
+
+          <div id="multi-item-list" style="margin-top:1.25rem;"></div>
+
+          <div id="multi-total-summary" style="margin-top:1.5rem;padding-top:1rem;border-top:1px dashed var(--border-color);max-width:380px;margin-left:auto;"></div>
+        </div>
+      </section>
+
+      <!-- Programmatic SEO Content & Snippet Table -->
+      <section class="seo-content seo-prose">
+        <h2>Mathematical Mechanics of GST Calculation</h2>
+        <p>
+          The Goods and Services Tax (GST) is a destination-based, multi-stage indirect tax levied on the supply of goods and services in India. Calculating GST accurately requires understanding whether the quoted price is <strong>tax-exclusive</strong> (pre-tax base) or <strong>tax-inclusive</strong> (post-tax retail price).
+        </p>
+
+        <h3>1. GST Exclusive Formula (Adding GST)</h3>
+        <p>When the stated price does not include tax, GST is calculated by applying the statutory tax rate directly to the net taxable base:</p>
+        <div class="formula-box">
+          GST Amount = (Base Amount &times; GST Rate) / 100<br>
+          Gross Price = Base Amount + GST Amount
+        </div>
+
+        <h3>2. GST Inclusive Formula (Extracting / Reverse GST)</h3>
+        <p>When an item is sold as "inclusive of all taxes" (MRP), the tax amount embedded inside the gross price is extracted using reverse division:</p>
+        <div class="formula-box">
+          GST Amount = Gross Price - [Gross Price &times; {100 / (100 + GST Rate)}]<br>
+          Net Base Amount = Gross Price - GST Amount
+        </div>
+
+        <!-- Google Position #0 Featured Snippet Table -->
+        <h2>Official Indian GST Slabs & Item Classification Reference (2026)</h2>
+        <p>Use this reference table to identify standard tax brackets established by the Central Board of Indirect Taxes and Customs (CBIC):</p>
+        
+        <div class="table-responsive">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>GST Rate</th>
+                <th>CGST (Central)</th>
+                <th>SGST (State)</th>
+                <th>IGST (Interstate)</th>
+                <th>Typical Goods &amp; Services</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>0%</strong></td>
+                <td>0%</td>
+                <td>0%</td>
+                <td>0%</td>
+                <td>Fresh fruits, vegetables, unprocessed milk, salt, natural honey, judicial papers, unbranded grains.</td>
+              </tr>
+              <tr>
+                <td><strong>3%</strong></td>
+                <td>1.5%</td>
+                <td>1.5%</td>
+                <td>3%</td>
+                <td>Gold, silver, platinum jewelry, and semi-precious stones.</td>
+              </tr>
+              <tr>
+                <td><strong>5%</strong></td>
+                <td>2.5%</td>
+                <td>2.5%</td>
+                <td>5%</td>
+                <td>Packaged pulses, edible oil, spices, life-saving medicines, tea, domestic LPG, economy flight seats.</td>
+              </tr>
+              <tr>
+                <td><strong>12%</strong></td>
+                <td>6.0%</td>
+                <td>6.0%</td>
+                <td>12%</td>
+                <td>Computers, processed food items, butter, ghee, fruit juices, apparel priced above ₹1,000.</td>
+              </tr>
+              <tr>
+                <td><strong>18%</strong></td>
+                <td>9.0%</td>
+                <td>9.0%</td>
+                <td>18%</td>
+                <td>IT software, telecom, consulting, restaurants in non-star hotels, hair oil, soap, branded apparel.</td>
+              </tr>
+              <tr>
+                <td><strong>28%</strong></td>
+                <td>14.0%</td>
+                <td>14.0%</td>
+                <td>28%</td>
+                <td>Automobiles, high-end motorbikes, air conditioners, refrigerators, tobacco products, carbonated beverages.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h2>Worked Examples: Step-by-Step Calculation</h2>
+        <div class="grid grid-2">
+          <div class="card">
+            <h3 style="margin-top:0;">Example 1: GST Exclusive Calculation</h3>
+            <p><strong>Scenario:</strong> A freelance software architect bills a client ₹50,000 for technical services with an 18% GST rate (Intrastate supply).</p>
+            <ul>
+              <li><strong>Base Amount:</strong> ₹50,000</li>
+              <li><strong>GST Rate:</strong> 18% (9% CGST + 9% SGST)</li>
+              <li><strong>GST Amount:</strong> (₹50,000 &times; 18) / 100 = <strong>₹9,000</strong></li>
+              <li><strong>CGST:</strong> ₹4,500 | <strong>SGST:</strong> ₹4,500</li>
+              <li><strong>Total Invoice Amount:</strong> ₹50,000 + ₹9,000 = <strong>₹59,000</strong></li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <h3 style="margin-top:0;">Example 2: GST Inclusive (Reverse) Calculation</h3>
+            <p><strong>Scenario:</strong> A consumer purchases a smartphone for an MRP of ₹23,600 inclusive of 18% GST. What is the actual base price?</p>
+            <ul>
+              <li><strong>Gross Retail Price:</strong> ₹23,600</li>
+              <li><strong>GST Formula:</strong> ₹23,600 - [₹23,600 &times; (100 / 118)]</li>
+              <li><strong>Net Base Price:</strong> ₹20,000</li>
+              <li><strong>GST Embedded:</strong> ₹3,600 (₹1,800 CGST + ₹1,800 SGST)</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- FAQ Section with Schema.org Accordion -->
+        <h2 style="margin-top:3rem;">Frequently Asked Questions (FAQ)</h2>
+        <div class="faq-list">
+          <div class="faq-item">
+            <button type="button" class="faq-question">
+              <span>What is the difference between GST Inclusive and GST Exclusive amount?</span>
+              <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="faq-answer">
+              <p>A GST Exclusive price is the raw base cost of a product or service without tax. The tax is calculated and added on top of this amount. A GST Inclusive price is the final consumer price that already has the GST tax component included inside it (e.g., retail MRP).</p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button type="button" class="faq-question">
+              <span>How do I determine whether to charge CGST+SGST or IGST?</span>
+              <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="faq-answer">
+              <p>The determining factor is the <strong>Location of the Supplier</strong> versus the <strong>Place of Supply</strong>. If both are situated within the same Indian state or union territory (Intrastate), equal parts of Central GST (CGST) and State GST (SGST) apply. If the supplier and place of supply are in different states (Interstate), Integrated GST (IGST) is charged entirely.</p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button type="button" class="faq-question">
+              <span>Is my financial calculation data private on XESTUS?</span>
+              <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="faq-answer">
+              <p>Yes, 100%. Unlike conventional web calculators that transmit input data to remote servers or third-party analytical endpoints, the XESTUS Suite executes all math logic locally in your browser's JavaScript engine. It is physically impossible for our servers to store or inspect your figures.</p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button type="button" class="faq-question">
+              <span>Can I use this calculator for gold and precious metals?</span>
+              <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="faq-answer">
+              <p>Yes. Enter <strong>3%</strong> in the "Custom rate" input box. Gold, silver, and precious stones are taxed at a special 3% rate under Indian GST rules, split as 1.5% CGST and 1.5% SGST for intrastate purchases.</p>
+            </div>
+          </div>
+        </div>
+
+      </section>
+
+    </div>
+  </main>
+
+  <!-- Site Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <div class="brand-logo" style="margin-bottom:1rem;">
+            <img src="/assets/icons/favicon.svg" alt="XESTUS Logo" width="32" height="32">
+            <span>XESTUS Suite</span>
+          </div>
+          <p style="color:var(--text-secondary);font-size:0.9rem;">India's privacy-focused financial computation platform. 100% in-browser computation.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Calculators</h4>
+          <ul class="footer-links">
+            <li><a href="/gst-calculator.html">GST Calculator India</a></li>
+            <li><a href="/gst-invoice-generator.html">GST Invoice Generator</a></li>
+            <li><a href="/income-tax-calculator.html">Old vs New Tax Regime</a></li>
+            <li><a href="/loan-emi-calculator.html">Loan EMI & Prepayment</a></li>
+            <li><a href="/sip-calculator.html">SIP Wealth Planner</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Trust & Editorial</h4>
+          <ul class="footer-links">
+            <li><a href="/about.html">About Us</a></li>
+            <li><a href="/contact.html">Contact Us</a></li>
+            <li><a href="/privacy-policy.html">Privacy Policy</a></li>
+            <li><a href="/terms.html">Terms of Service</a></li>
+            <li><a href="/disclaimer.html">Disclaimer</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Support</h4>
+          <p style="color:var(--text-secondary);font-size:0.9rem;">Editorial Desk:</p>
+          <p style="font-family:var(--font-mono);font-size:0.875rem;color:var(--accent-primary);"><a href="mailto:xestus.office@gmail.com">xestus.office@gmail.com</a></p>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div>&copy; 2026 XESTUS Finance & Tax Suite.</div>
+        <div style="display:flex;gap:1.5rem;">
+          <a href="/privacy-policy.html">Privacy</a>
+          <a href="/terms.html">Terms</a>
+          <a href="/disclaimer.html">Disclaimer</a>
+          <a href="/sitemap.xml">Sitemap</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <div id="cookie-consent-banner" class="cookie-banner">
+    <div style="font-weight:700;font-size:1.05rem;color:var(--text-primary);margin-bottom:0.4rem;">Privacy &amp; Cookie Preferences</div>
+    <p style="font-size:0.875rem;color:var(--text-secondary);line-height:1.5;margin-bottom:1.25rem;">We use minimal cookies for theme persistence. Calculations remain strictly on your local browser.</p>
+    <div style="display:flex;gap:0.75rem;justify-content:flex-end;">
+      <button type="button" id="cookie-reject-all" class="btn btn-secondary" style="padding:0.4rem 0.9rem;font-size:0.85rem;">Essential Only</button>
+      <button type="button" id="cookie-accept-all" class="btn btn-primary" style="padding:0.4rem 1.1rem;font-size:0.85rem;">Accept Preferences</button>
+    </div>
+  </div>
+
+  <script src="/js/main.js"></script>
+  <script src="/js/chart-renderer.js"></script>
+  <script src="/js/gst-calculator.js"></script>
+</body>
+</html>
