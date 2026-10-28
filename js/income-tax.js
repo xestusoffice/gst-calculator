@@ -1,6 +1,6 @@
 /**
  * Income Tax Calculator Engine (FY 2026-27 / AY 2027-28 & FY 2025-26)
- * Built with Precision by XESTUS Company
+ * Built with Precision by XESTUS
  * Complete Slabs, Section 87A Full Rebate, Marginal Relief & Monthly Take-Home Pay
  */
 

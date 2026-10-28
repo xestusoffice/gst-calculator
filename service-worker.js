@@ -1,5 +1,5 @@
 /**
- * GST Calculator by XESTUS Company - Service Worker
+ * GST Calculator by XESTUS - Service Worker
  * Offline Cache Strategy - Enables full client-side calculation even without internet
  */
 

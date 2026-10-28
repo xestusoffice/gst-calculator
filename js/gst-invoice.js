@@ -1,5 +1,5 @@
 /**
- * Indian GST Tax Invoice Generator Engine - Powered by XESTUS Company
+ * Indian GST Tax Invoice Generator Engine - Powered by XESTUS
  * 100% Indian GST Rule 46 Compliant - Pure In-Browser Execution
  * Instant PDF Printing & Local Drafts - Physical Leak Proof
  */
@@ -466,7 +466,7 @@
         </div>
 
         <div style="text-align:center;font-size:9px;color:#94a3b8;margin-top:1.25rem;">
-          Created with GST Calculator & Tax Suite • Powered by XESTUS Company (100% In-Browser Privacy)
+          Created with GST Calculator & Tax Suite • Powered by XESTUS (100% In-Browser Privacy)
         </div>
       </div>
     `;

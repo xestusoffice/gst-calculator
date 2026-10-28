@@ -1,7 +1,7 @@
 {
-  "name": "GST Calculator - by XESTUS Company",
+  "name": "GST Calculator - by XESTUS",
   "short_name": "GST Calculator",
-  "description": "Ultra-secure, 100% private in-browser GST & financial utility suite engineered by XESTUS Company.",
+  "description": "Ultra-secure, 100% private in-browser GST & financial utility suite engineered by XESTUS.",
   "start_url": "./index.html",
   "display": "standalone",
   "background_color": "#0A0F1D",

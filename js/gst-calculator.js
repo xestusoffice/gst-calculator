@@ -1,5 +1,5 @@
 /**
- * GST Calculator Engine (India) - Powered by XESTUS Company
+ * GST Calculator Engine (India) - Powered by XESTUS
  * Inclusive & Exclusive, CGST/SGST/IGST, Multi-Item Cart & Live HSN Lookup
  * 100% Client-Side - Zero Data Leak
  */
