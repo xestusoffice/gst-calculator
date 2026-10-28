@@ -188,6 +188,10 @@
       }
     }
 
+    const curr = (window.Xestus && window.Xestus.getCurrency) ? window.Xestus.getCurrency() : { symbol: '₹', system: 'indian' };
+    const currSymbol = curr.symbol;
+    const localeStr = curr.system === 'indian' ? 'en-IN' : 'en-US';
+
     // Monthly In-Hand Salary Calculation
     const annualTakeHome = Math.max(0, totalIncome - bestTax);
     const monthlyInHand = Math.round(annualTakeHome / 12);
@@ -195,7 +199,7 @@
 
     const elMonthlyInHand = document.getElementById('res-monthly-inhand');
     const elEffectiveRate = document.getElementById('res-effective-rate');
-    if (elMonthlyInHand) elMonthlyInHand.textContent = `₹${monthlyInHand.toLocaleString('en-IN')}`;
+    if (elMonthlyInHand) elMonthlyInHand.textContent = `${currSymbol}${monthlyInHand.toLocaleString(localeStr)}`;
     if (elEffectiveRate) elEffectiveRate.textContent = `${effectiveTaxRate}%`;
 
     // Update Result Panel Elements
@@ -207,13 +211,13 @@
     const elCessNew = document.getElementById('res-cess-new');
     const elCessOld = document.getElementById('res-cess-old');
 
-    if (elTaxNew) elTaxNew.textContent = `₹${totalTaxNew.toLocaleString('en-IN')}`;
-    if (elTaxOld) elTaxOld.textContent = `₹${totalTaxOld.toLocaleString('en-IN')}`;
-    if (elTaxableNew) elTaxableNew.textContent = `₹${taxableIncomeNew.toLocaleString('en-IN')}`;
-    if (elTaxableOld) elTaxableOld.textContent = `₹${taxableIncomeOld.toLocaleString('en-IN')}`;
-    if (elDeductionsOld) elDeductionsOld.textContent = `₹${totalOldDeductions.toLocaleString('en-IN')}`;
-    if (elCessNew) elCessNew.textContent = `₹${Math.round(cessNew).toLocaleString('en-IN')}`;
-    if (elCessOld) elCessOld.textContent = `₹${Math.round(cessOld).toLocaleString('en-IN')}`;
+    if (elTaxNew) elTaxNew.textContent = `${currSymbol}${totalTaxNew.toLocaleString(localeStr)}`;
+    if (elTaxOld) elTaxOld.textContent = `${currSymbol}${totalTaxOld.toLocaleString(localeStr)}`;
+    if (elTaxableNew) elTaxableNew.textContent = `${currSymbol}${taxableIncomeNew.toLocaleString(localeStr)}`;
+    if (elTaxableOld) elTaxableOld.textContent = `${currSymbol}${taxableIncomeOld.toLocaleString(localeStr)}`;
+    if (elDeductionsOld) elDeductionsOld.textContent = `${currSymbol}${totalOldDeductions.toLocaleString(localeStr)}`;
+    if (elCessNew) elCessNew.textContent = `${currSymbol}${Math.round(cessNew).toLocaleString(localeStr)}`;
+    if (elCessOld) elCessOld.textContent = `${currSymbol}${Math.round(cessOld).toLocaleString(localeStr)}`;
 
     // Render Donut Chart for Take Home vs Tax
     if (window.XestusChart && document.getElementById('tax-chart-container')) {
@@ -224,11 +228,15 @@
           { label: 'Total Tax & Cess', value: Math.round(bestTax), color: '#EF4444' }
         ],
         'Monthly In-Hand',
-        `₹${monthlyInHand.toLocaleString('en-IN')}`
+        `${currSymbol}${monthlyInHand.toLocaleString(localeStr)}`
       );
     }
   }
 
   document.addEventListener('DOMContentLoaded', initTaxCalculator);
+
+  window.addEventListener('xestus:currency-change', () => {
+    computeTaxComparison();
+  });
 
 })();

@@ -96,6 +96,28 @@
       </nav>
 
       <div class="nav-actions">
+        <!-- Global Currency Switcher -->
+        <div class="currency-select-wrapper" title="Select Global Currency">
+          <span class="currency-select-icon" aria-hidden="true">🌐</span>
+          <select class="currency-select" aria-label="Select Currency">
+            <option value="INR">₹ INR</option>
+            <option value="USD">$ USD</option>
+            <option value="EUR">€ EUR</option>
+            <option value="GBP">£ GBP</option>
+            <option value="AED">AED</option>
+            <option value="CAD">CA$ CAD</option>
+            <option value="AUD">A$ AUD</option>
+            <option value="SGD">S$ SGD</option>
+            <option value="JPY">¥ JPY</option>
+            <option value="SAR">SAR</option>
+            <option value="BDT">৳ BDT</option>
+            <option value="MYR">RM MYR</option>
+            <option value="THB">฿ THB</option>
+            <option value="CHF">CHF</option>
+          </select>
+          <span class="currency-select-arrow" aria-hidden="true">▼</span>
+        </div>
+
         <div class="theme-switcher" role="group" aria-label="Display theme selection">
           <button type="button" class="theme-btn active" data-set-theme="dark" title="Night Mode (Dark)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></button>
           <button type="button" class="theme-btn" data-set-theme="light" title="Day Mode (Light)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg></button>
@@ -115,13 +137,13 @@
     <section class="container hero-section">
       <div class="hero-pill">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-        <span>Engineered by XESTUS • 100% In-Browser Privacy</span>
+        <span>Engineered by XESTUS • 100% In-Browser Privacy • 14+ World Currencies</span>
       </div>
       <h1 class="hero-title">
-        The Premier <span class="gradient-text">GST Calculator</span> &amp; Tax Suite
+        The Premier <span class="gradient-text">GST &amp; Tax Suite</span> for Global Users
       </h1>
       <p class="hero-subtitle">
-        Fast, zero-leak financial intelligence for Indian business owners, chartered accountants, freelancers, and smart investors. Built with bank-grade mathematical precision.
+        Fast, zero-leak financial intelligence for global businesses, freelancers, accountants, and investors. Calculate GST, VAT, Sales Tax, Loan EMI &amp; SIP Wealth in <strong>14+ World Currencies</strong> (INR, USD, EUR, GBP, AED, CAD, AUD, etc.) with bank-grade mathematical precision.
       </p>
       <div style="display:flex;justify-content:center;gap:1rem;flex-wrap:wrap;">
         <a href="./gst-calculator.html" class="btn btn-primary">
@@ -146,12 +168,12 @@
         <!-- 1: GST Calculator -->
         <a href="./gst-calculator.html" class="card card-clickable" style="text-decoration:none;color:inherit;">
           <div class="card-header">
-            <span class="card-badge">Inclusive &amp; Exclusive</span>
+            <span class="card-badge">Inclusive &amp; Exclusive • Global</span>
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--accent-primary)" stroke-width="2"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="16" y1="14" x2="16" y2="18"/></svg>
           </div>
-          <h3 class="card-title">GST Calculator (India)</h3>
+          <h3 class="card-title">GST, VAT &amp; Sales Tax Calculator</h3>
           <p style="color:var(--text-secondary);font-size:0.95rem;margin:0.75rem 0 1.25rem;">
-            Instant calculation for 0%, 5%, 12%, 18%, 28% and custom rates with automatic CGST, SGST, and IGST breakdowns and multi-item billing.
+            Instant calculation for India (0%, 5%, 12%, 18%, 28%), USA (Sales Tax), UK/EU (VAT), UAE, Canada, Australia and custom rates in all world currencies.
           </p>
           <span style="font-weight:700;color:var(--accent-primary);display:inline-flex;align-items:center;gap:0.35rem;font-size:0.9rem;">
             Calculate GST &rarr;

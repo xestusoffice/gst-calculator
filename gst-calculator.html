@@ -125,6 +125,28 @@
       </nav>
 
       <div class="nav-actions">
+        <!-- Global Currency Switcher -->
+        <div class="currency-select-wrapper" title="Select Global Currency">
+          <span class="currency-select-icon" aria-hidden="true">🌐</span>
+          <select class="currency-select" aria-label="Select Currency">
+            <option value="INR">₹ INR</option>
+            <option value="USD">$ USD</option>
+            <option value="EUR">€ EUR</option>
+            <option value="GBP">£ GBP</option>
+            <option value="AED">AED</option>
+            <option value="CAD">CA$ CAD</option>
+            <option value="AUD">A$ AUD</option>
+            <option value="SGD">S$ SGD</option>
+            <option value="JPY">¥ JPY</option>
+            <option value="SAR">SAR</option>
+            <option value="BDT">৳ BDT</option>
+            <option value="MYR">RM MYR</option>
+            <option value="THB">฿ THB</option>
+            <option value="CHF">CHF</option>
+          </select>
+          <span class="currency-select-arrow" aria-hidden="true">▼</span>
+        </div>
+
         <div class="theme-switcher" role="group" aria-label="Display theme selection">
           <button type="button" class="theme-btn active" data-set-theme="dark" title="Night Mode (Dark)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></button>
           <button type="button" class="theme-btn" data-set-theme="light" title="Day Mode (Light)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg></button>
@@ -158,19 +180,41 @@
         
         <!-- Controls Column -->
         <div class="card">
+          <!-- Country / Region Tax Slabs Presets -->
+          <div class="form-group">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.5rem;flex-wrap:wrap;gap:0.35rem;">
+              <label class="form-label" style="margin-bottom:0;">
+                <span>Tax System &amp; Country Presets</span>
+                <span class="form-hint">GST • VAT • Sales Tax</span>
+              </label>
+              <span style="font-size:0.75rem;color:var(--accent-primary);font-weight:600;">Worldwide 190+ Countries</span>
+            </div>
+            <div class="country-pill-group">
+              <button type="button" class="country-pill active" data-tax-country="IN">🇮🇳 India (GST)</button>
+              <button type="button" class="country-pill" data-tax-country="US">🇺🇸 USA (Sales Tax)</button>
+              <button type="button" class="country-pill" data-tax-country="GB">🇬🇧 UK (VAT)</button>
+              <button type="button" class="country-pill" data-tax-country="EU">🇪🇺 Europe (VAT)</button>
+              <button type="button" class="country-pill" data-tax-country="AE">🇦🇪 UAE / Gulf (VAT)</button>
+              <button type="button" class="country-pill" data-tax-country="CA">🇨🇦 Canada (GST/HST)</button>
+              <button type="button" class="country-pill" data-tax-country="AU">🇦🇺 Australia (GST)</button>
+              <button type="button" class="country-pill" data-tax-country="SG">🇸🇬 Singapore (GST)</button>
+              <button type="button" class="country-pill" data-tax-country="BD">🇧🇩 Bangladesh (VAT)</button>
+            </div>
+          </div>
+
           <!-- Mode Tabs -->
           <div class="form-group">
             <label class="form-label">Calculation Mode</label>
             <div class="segmented-control" role="tablist">
-              <button type="button" class="active" data-gst-mode="exclusive" role="tab" aria-selected="true">GST Exclusive (Add GST)</button>
-              <button type="button" data-gst-mode="inclusive" role="tab" aria-selected="false">GST Inclusive (Remove GST)</button>
+              <button type="button" class="active" data-gst-mode="exclusive" role="tab" aria-selected="true">Tax Exclusive (Add Tax)</button>
+              <button type="button" data-gst-mode="inclusive" role="tab" aria-selected="false">Tax Inclusive (Extract Tax)</button>
             </div>
           </div>
 
           <!-- Base Amount Input -->
           <div class="form-group">
             <label class="form-label" for="gst-amount">
-              <span>Amount (₹)</span>
+              <span>Amount</span>
               <span class="form-hint">Type or drag slider</span>
             </label>
             <div class="input-currency-wrapper">
@@ -178,11 +222,11 @@
               <input type="number" id="gst-amount" class="input-currency" value="10000" min="0" step="any">
             </div>
             <div class="range-slider-wrapper">
-              <input type="range" id="gst-slider" class="range-slider" min="500" max="1000000" step="500" value="10000" aria-label="Amount range slider">
+              <input type="range" id="gst-slider" class="range-slider" min="50" max="1000000" step="50" value="10000" aria-label="Amount range slider">
               <div class="slider-labels">
-                <span>₹500</span>
-                <span>₹5,00,000</span>
-                <span>₹10,00,000</span>
+                <span>50</span>
+                <span>5,00,000</span>
+                <span>10,00,000</span>
               </div>
             </div>
           </div>
@@ -191,19 +235,19 @@
           <div class="form-group">
             <label class="form-label">Quick Amount Presets</label>
             <div class="chip-group">
-              <button type="button" class="chip-btn" data-amount-chip="1000">₹1,000</button>
-              <button type="button" class="chip-btn" data-amount-chip="5000">₹5,000</button>
-              <button type="button" class="chip-btn active" data-amount-chip="10000">₹10,000</button>
-              <button type="button" class="chip-btn" data-amount-chip="25000">₹25,000</button>
-              <button type="button" class="chip-btn" data-amount-chip="50000">₹50,000</button>
-              <button type="button" class="chip-btn" data-amount-chip="100000">₹1,00,000</button>
+              <button type="button" class="chip-btn" data-amount-chip="1000">1,000</button>
+              <button type="button" class="chip-btn" data-amount-chip="5000">5,000</button>
+              <button type="button" class="chip-btn active" data-amount-chip="10000">10,000</button>
+              <button type="button" class="chip-btn" data-amount-chip="25000">25,000</button>
+              <button type="button" class="chip-btn" data-amount-chip="50000">50,000</button>
+              <button type="button" class="chip-btn" data-amount-chip="100000">1,00,000</button>
             </div>
           </div>
 
           <!-- GST Rate Slabs -->
           <div class="form-group">
-            <label class="form-label">Select GST Tax Rate (%)</label>
-            <div class="chip-group" style="margin-bottom:0.75rem;">
+            <label class="form-label">Select Tax Rate (%)</label>
+            <div class="chip-group" id="gst-slab-container" style="margin-bottom:0.75rem;">
               <button type="button" class="chip-btn gst-slab-btn" data-rate="0">0%</button>
               <button type="button" class="chip-btn gst-slab-btn" data-rate="5">5%</button>
               <button type="button" class="chip-btn gst-slab-btn" data-rate="12">12%</button>

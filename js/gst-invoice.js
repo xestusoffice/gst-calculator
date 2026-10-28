@@ -97,6 +97,10 @@
     const tbody = document.getElementById('inv-items-body');
     if (!tbody) return;
 
+    const curr = (window.Xestus && window.Xestus.getCurrency) ? window.Xestus.getCurrency() : { symbol: '₹', system: 'indian' };
+    const currSymbol = curr.symbol;
+    const localeStr = curr.system === 'indian' ? 'en-IN' : 'en-US';
+
     tbody.innerHTML = '';
     invoiceItems.forEach((item, idx) => {
       const taxable = item.qty * item.rate * (1 - (item.discount / 100));
@@ -134,7 +138,7 @@
           </select>
         </td>
         <td class="font-mono" style="text-align:right;font-weight:700;width:110px;">
-          ₹${total.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+          ${currSymbol}${total.toLocaleString(localeStr, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
         </td>
         <td style="width:35px;text-align:center;">
           <button type="button" class="inv-item-remove" data-idx="${idx}" style="color:var(--accent-danger);font-size:1.2rem;cursor:pointer;" title="Remove Item">&times;</button>
@@ -230,6 +234,10 @@
     const grandTotal = Math.round(subtotalTaxable + totalTax);
     const roundOff = grandTotal - (subtotalTaxable + totalTax);
 
+    const curr = (window.Xestus && window.Xestus.getCurrency) ? window.Xestus.getCurrency() : { symbol: '₹', system: 'indian' };
+    const currSymbol = curr.symbol;
+    const localeStr = curr.system === 'indian' ? 'en-IN' : 'en-US';
+
     // Update Live Form Totals
     const formSubtotal = document.getElementById('inv-subtotal');
     const formCgst = document.getElementById('inv-cgst');
@@ -238,12 +246,12 @@
     const formRoundoff = document.getElementById('inv-roundoff');
     const formGrandTotal = document.getElementById('inv-grand-total');
 
-    if (formSubtotal) formSubtotal.textContent = `₹${subtotalTaxable.toLocaleString('en-IN', { minimumFractionDigits: 2 })}`;
-    if (formCgst) formCgst.textContent = `₹${totalCgst.toLocaleString('en-IN', { minimumFractionDigits: 2 })}`;
-    if (formSgst) formSgst.textContent = `₹${totalSgst.toLocaleString('en-IN', { minimumFractionDigits: 2 })}`;
-    if (formIgst) formIgst.textContent = `₹${totalIgst.toLocaleString('en-IN', { minimumFractionDigits: 2 })}`;
-    if (formRoundoff) formRoundoff.textContent = `₹${roundOff.toFixed(2)}`;
-    if (formGrandTotal) formGrandTotal.textContent = `₹${grandTotal.toLocaleString('en-IN', { minimumFractionDigits: 2 })}`;
+    if (formSubtotal) formSubtotal.textContent = `${currSymbol}${subtotalTaxable.toLocaleString(localeStr, { minimumFractionDigits: 2 })}`;
+    if (formCgst) formCgst.textContent = `${currSymbol}${totalCgst.toLocaleString(localeStr, { minimumFractionDigits: 2 })}`;
+    if (formSgst) formSgst.textContent = `${currSymbol}${totalSgst.toLocaleString(localeStr, { minimumFractionDigits: 2 })}`;
+    if (formIgst) formIgst.textContent = `${currSymbol}${totalIgst.toLocaleString(localeStr, { minimumFractionDigits: 2 })}`;
+    if (formRoundoff) formRoundoff.textContent = `${currSymbol}${roundOff.toFixed(2)}`;
+    if (formGrandTotal) formGrandTotal.textContent = `${currSymbol}${grandTotal.toLocaleString(localeStr, { minimumFractionDigits: 2 })}`;
 
     const cgstRow = document.getElementById('inv-cgst-row');
     const sgstRow = document.getElementById('inv-sgst-row');
@@ -403,30 +411,30 @@
           <div style="border:1px solid #e2e8f0;border-radius:4px;overflow:hidden;">
             <div style="display:flex;justify-content:space-between;padding:5px 8px;border-bottom:1px solid #f1f5f9;">
               <span>Taxable Value:</span>
-              <strong style="font-family:monospace;">₹${(taxable || 0).toLocaleString('en-IN', { minimumFractionDigits: 2 })}</strong>
+              <strong style="font-family:monospace;">${currSymbol}${(taxable || 0).toLocaleString(localeStr, { minimumFractionDigits: 2 })}</strong>
             </div>
             ${isIntraState ? `
               <div style="display:flex;justify-content:space-between;padding:5px 8px;border-bottom:1px solid #f1f5f9;">
                 <span>CGST:</span>
-                <strong style="font-family:monospace;">₹${(cgst || 0).toLocaleString('en-IN', { minimumFractionDigits: 2 })}</strong>
+                <strong style="font-family:monospace;">${currSymbol}${(cgst || 0).toLocaleString(localeStr, { minimumFractionDigits: 2 })}</strong>
               </div>
               <div style="display:flex;justify-content:space-between;padding:5px 8px;border-bottom:1px solid #f1f5f9;">
                 <span>SGST:</span>
-                <strong style="font-family:monospace;">₹${(sgst || 0).toLocaleString('en-IN', { minimumFractionDigits: 2 })}</strong>
+                <strong style="font-family:monospace;">${currSymbol}${(sgst || 0).toLocaleString(localeStr, { minimumFractionDigits: 2 })}</strong>
               </div>
             ` : `
               <div style="display:flex;justify-content:space-between;padding:5px 8px;border-bottom:1px solid #f1f5f9;">
                 <span>IGST:</span>
-                <strong style="font-family:monospace;">₹${(igst || 0).toLocaleString('en-IN', { minimumFractionDigits: 2 })}</strong>
+                <strong style="font-family:monospace;">${currSymbol}${(igst || 0).toLocaleString(localeStr, { minimumFractionDigits: 2 })}</strong>
               </div>
             `}
             <div style="display:flex;justify-content:space-between;padding:5px 8px;border-bottom:1px solid #f1f5f9;">
               <span>Round Off:</span>
-              <strong style="font-family:monospace;">₹${(roundOff || 0).toFixed(2)}</strong>
+              <strong style="font-family:monospace;">${currSymbol}${(roundOff || 0).toFixed(2)}</strong>
             </div>
             <div style="display:flex;justify-content:space-between;padding:8px;background:#059669;color:#ffffff;font-size:14px;font-weight:800;">
               <span>Grand Total:</span>
-              <span style="font-family:monospace;">₹${(grandTotal || 0).toLocaleString('en-IN', { minimumFractionDigits: 2 })}</span>
+              <span style="font-family:monospace;">${currSymbol}${(grandTotal || 0).toLocaleString(localeStr, { minimumFractionDigits: 2 })}</span>
             </div>
           </div>
         </div>
@@ -602,5 +610,11 @@
   }
 
   document.addEventListener('DOMContentLoaded', initInvoiceForm);
+
+  // Listen for global currency switcher events
+  window.addEventListener('xestus:currency-change', () => {
+    renderInvoiceRows();
+    calculateInvoice();
+  });
 
 })();

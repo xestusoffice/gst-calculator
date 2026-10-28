@@ -11,6 +11,19 @@
   let currentSupply = 'intra';    // 'intra' (CGST+SGST) | 'inter' (IGST)
   let currentRate = 18;          // 0, 5, 12, 18, 28 or custom
 
+  // World Country Tax Presets (GST, VAT, Sales Tax)
+  const COUNTRY_TAX_PRESETS = {
+    IN: { name: 'India (GST)', currency: 'INR', defaultRate: 18, rates: [0, 5, 12, 18, 28], taxName: 'GST' },
+    US: { name: 'USA (Sales Tax)', currency: 'USD', defaultRate: 7, rates: [0, 4, 6, 7, 8.5, 10], taxName: 'Sales Tax' },
+    GB: { name: 'UK (VAT)', currency: 'GBP', defaultRate: 20, rates: [0, 5, 20], taxName: 'VAT' },
+    EU: { name: 'Europe (VAT)', currency: 'EUR', defaultRate: 21, rates: [0, 10, 19, 20, 21], taxName: 'VAT' },
+    AE: { name: 'UAE / Gulf (VAT)', currency: 'AED', defaultRate: 5, rates: [0, 5, 15], taxName: 'VAT' },
+    CA: { name: 'Canada (GST/HST)', currency: 'CAD', defaultRate: 13, rates: [0, 5, 13, 15], taxName: 'GST/HST' },
+    AU: { name: 'Australia (GST)', currency: 'AUD', defaultRate: 10, rates: [0, 10], taxName: 'GST' },
+    SG: { name: 'Singapore (GST)', currency: 'SGD', defaultRate: 9, rates: [0, 9], taxName: 'GST' },
+    BD: { name: 'Bangladesh (VAT)', currency: 'BDT', defaultRate: 15, rates: [0, 5, 7.5, 10, 15], taxName: 'VAT' }
+  };
+
   // Elements
   const baseAmountInput = document.getElementById('gst-amount');
   const amountSlider = document.getElementById('gst-slider');
@@ -133,15 +146,19 @@
 
     // Render Donut Chart
     if (window.XestusChart && document.getElementById('gst-chart-container')) {
+      const curr = (window.Xestus && window.Xestus.getCurrency) ? window.Xestus.getCurrency() : { symbol: '₹', system: 'indian' };
+      const currSymbol = curr.symbol;
+      const localeStr = curr.system === 'indian' ? 'en-IN' : 'en-US';
+
       const chartData = [
         { label: 'Net Taxable Amount', value: Math.round(netAmount), color: '#10B981' },
-        { label: 'Total GST Amount', value: Math.round(gstAmount), color: '#3B82F6' }
+        { label: 'Total GST / Tax', value: Math.round(gstAmount), color: '#3B82F6' }
       ];
       window.XestusChart.renderDonut(
         'gst-chart-container',
         chartData,
         currentMode === 'exclusive' ? 'Gross Price' : 'Net Price',
-        `₹${Math.round(currentMode === 'exclusive' ? grossAmount : netAmount).toLocaleString('en-IN')}`
+        `${currSymbol}${Math.round(currentMode === 'exclusive' ? grossAmount : netAmount).toLocaleString(localeStr)}`
       );
     }
   }
@@ -269,6 +286,10 @@
     const listEl = document.getElementById('multi-item-list');
     if (!listEl) return;
 
+    const curr = (window.Xestus && window.Xestus.getCurrency) ? window.Xestus.getCurrency() : { symbol: '₹', system: 'indian' };
+    const currSymbol = curr.symbol;
+    const localeStr = curr.system === 'indian' ? 'en-IN' : 'en-US';
+
     listEl.innerHTML = '';
     let totalTaxable = 0;
     let totalTax = 0;
@@ -290,7 +311,7 @@
         <input type="text" value="${window.Xestus.escapeHTML(item.name)}" placeholder="Item or Service" data-item-idx="${index}" class="multi-item-name" style="font-size:0.9rem;">
         <input type="number" value="${item.qty || 1}" min="1" step="1" placeholder="Qty" data-item-idx="${index}" class="multi-item-qty" style="font-size:0.9rem;text-align:right;">
         <div class="input-currency-wrapper">
-          <span class="input-currency-symbol">₹</span>
+          <span class="input-currency-symbol">${currSymbol}</span>
           <input type="number" value="${item.amount}" placeholder="Rate" data-item-idx="${index}" class="multi-item-amt input-currency" style="font-size:0.9rem;padding-left:1.8rem;text-align:right;">
         </div>
         <select data-item-idx="${index}" class="multi-item-rate" style="font-size:0.9rem;">
@@ -301,7 +322,7 @@
           <option value="28" ${item.rate === 28 ? 'selected' : ''}>28%</option>
         </select>
         <div class="font-mono" data-row-total-idx="${index}" style="text-align:right;font-weight:700;">
-          ₹${(itemTaxable + tax).toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+          ${currSymbol}${(itemTaxable + tax).toLocaleString(localeStr, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
         </div>
         <button type="button" data-remove-idx="${index}" style="color:var(--accent-danger);font-size:1.3rem;cursor:pointer;text-align:center;" title="Remove Item">&times;</button>
       `;
@@ -312,13 +333,13 @@
     if (multiTotalEl) {
       multiTotalEl.innerHTML = `
         <div class="breakdown-row">
-          <span>Total Taxable Base:</span> <span class="font-mono">₹${totalTaxable.toLocaleString('en-IN', { minimumFractionDigits: 2 })}</span>
+          <span>Total Taxable Base:</span> <span class="font-mono">${currSymbol}${totalTaxable.toLocaleString(localeStr, { minimumFractionDigits: 2 })}</span>
         </div>
         <div class="breakdown-row">
-          <span>Total GST (All Items):</span> <span class="font-mono" style="color:var(--accent-primary);">₹${totalTax.toLocaleString('en-IN', { minimumFractionDigits: 2 })}</span>
+          <span>Total Tax / GST:</span> <span class="font-mono" style="color:var(--accent-primary);">${currSymbol}${totalTax.toLocaleString(localeStr, { minimumFractionDigits: 2 })}</span>
         </div>
         <div class="breakdown-row" style="font-size:1.15rem;font-weight:800;border-top:1px solid var(--border-color);padding-top:0.75rem;">
-          <span>Grand Bill Total:</span> <span class="font-mono" style="color:var(--accent-primary);">₹${(totalTaxable + totalTax).toLocaleString('en-IN', { minimumFractionDigits: 2 })}</span>
+          <span>Grand Bill Total:</span> <span class="font-mono" style="color:var(--accent-primary);">${currSymbol}${(totalTaxable + totalTax).toLocaleString(localeStr, { minimumFractionDigits: 2 })}</span>
         </div>
       `;
     }
@@ -364,6 +385,10 @@
     let totalTaxable = 0;
     let totalTax = 0;
 
+    const curr = (window.Xestus && window.Xestus.getCurrency) ? window.Xestus.getCurrency() : { symbol: '₹', system: 'indian' };
+    const currSymbol = curr.symbol;
+    const localeStr = curr.system === 'indian' ? 'en-IN' : 'en-US';
+
     multiItems.forEach((item, index) => {
       const itemTaxable = (item.amount * (item.qty || 1));
       const tax = (itemTaxable * item.rate) / 100;
@@ -372,7 +397,7 @@
 
       const rowTotalEl = document.querySelector(`[data-row-total-idx="${index}"]`);
       if (rowTotalEl) {
-        rowTotalEl.textContent = `₹${(itemTaxable + tax).toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+        rowTotalEl.textContent = `${currSymbol}${(itemTaxable + tax).toLocaleString(localeStr, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
       }
     });
 
@@ -380,13 +405,13 @@
     if (multiTotalEl) {
       multiTotalEl.innerHTML = `
         <div class="breakdown-row">
-          <span>Total Taxable Base:</span> <span class="font-mono">₹${totalTaxable.toLocaleString('en-IN', { minimumFractionDigits: 2 })}</span>
+          <span>Total Taxable Base:</span> <span class="font-mono">${currSymbol}${totalTaxable.toLocaleString(localeStr, { minimumFractionDigits: 2 })}</span>
         </div>
         <div class="breakdown-row">
-          <span>Total GST (All Items):</span> <span class="font-mono" style="color:var(--accent-primary);">₹${totalTax.toLocaleString('en-IN', { minimumFractionDigits: 2 })}</span>
+          <span>Total Tax / GST:</span> <span class="font-mono" style="color:var(--accent-primary);">${currSymbol}${totalTax.toLocaleString(localeStr, { minimumFractionDigits: 2 })}</span>
         </div>
         <div class="breakdown-row" style="font-size:1.15rem;font-weight:800;border-top:1px solid var(--border-color);padding-top:0.75rem;">
-          <span>Grand Bill Total:</span> <span class="font-mono" style="color:var(--accent-primary);">₹${(totalTaxable + totalTax).toLocaleString('en-IN', { minimumFractionDigits: 2 })}</span>
+          <span>Grand Bill Total:</span> <span class="font-mono" style="color:var(--accent-primary);">${currSymbol}${(totalTaxable + totalTax).toLocaleString(localeStr, { minimumFractionDigits: 2 })}</span>
         </div>
       `;
     }
@@ -467,11 +492,61 @@
     renderHsnRows();
   }
 
+  // Country & Global Tax Preset Switcher
+  function initCountryPresets() {
+    document.querySelectorAll('[data-tax-country]').forEach(pill => {
+      pill.addEventListener('click', () => {
+        document.querySelectorAll('[data-tax-country]').forEach(p => p.classList.remove('active'));
+        pill.classList.add('active');
+        const countryKey = pill.getAttribute('data-tax-country');
+        const preset = COUNTRY_TAX_PRESETS[countryKey];
+        if (!preset) return;
+
+        // Auto-sync currency
+        if (window.Xestus && window.Xestus.setCurrency) {
+          window.Xestus.setCurrency(preset.currency);
+        }
+
+        // Render dynamic slabs for country
+        const slabsContainer = document.getElementById('gst-slab-container');
+        if (slabsContainer) {
+          slabsContainer.innerHTML = preset.rates.map(r => `
+            <button type="button" class="chip-btn gst-slab-btn ${r === preset.defaultRate ? 'active' : ''}" data-rate="${r}">${r}%</button>
+          `).join('');
+
+          // Re-bind click events on new slab buttons
+          slabsContainer.querySelectorAll('.gst-slab-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+              slabsContainer.querySelectorAll('.gst-slab-btn').forEach(b => b.classList.remove('active'));
+              btn.classList.add('active');
+              currentRate = parseFloat(btn.getAttribute('data-rate'));
+              if (customRateInput) customRateInput.value = '';
+              calculateGST();
+            });
+          });
+        }
+
+        currentRate = preset.defaultRate;
+        if (customRateInput) customRateInput.value = '';
+
+        calculateGST();
+        window.Xestus.toast(`Loaded ${preset.name} rates & ${preset.currency} currency`);
+      });
+    });
+  }
+
   // Initial Calculation on Load
   document.addEventListener('DOMContentLoaded', () => {
     calculateGST();
     renderMultiItems();
     initHsnFinder();
+    initCountryPresets();
+  });
+
+  // Listen for global currency switcher events
+  window.addEventListener('xestus:currency-change', () => {
+    calculateGST();
+    updateMultiItemTotals();
   });
 
 })();

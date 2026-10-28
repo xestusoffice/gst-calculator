@@ -113,6 +113,10 @@
       inflationAdjustedCorpus = accumulatedCorpus / inflationFactor;
     }
 
+    const curr = (window.Xestus && window.Xestus.getCurrency) ? window.Xestus.getCurrency() : { symbol: '₹', system: 'indian' };
+    const currSymbol = curr.symbol;
+    const localeStr = curr.system === 'indian' ? 'en-IN' : 'en-US';
+
     // Update Display
     const elCorpus = document.getElementById('res-sip-corpus');
     const elInvested = document.getElementById('res-sip-invested');
@@ -120,14 +124,14 @@
     const elInflationLabel = document.getElementById('res-sip-inflation-label');
 
     if (elCorpus) {
-      elCorpus.textContent = `₹${Math.round(adjustInflation ? inflationAdjustedCorpus : accumulatedCorpus).toLocaleString('en-IN')}`;
+      elCorpus.textContent = `${currSymbol}${Math.round(adjustInflation ? inflationAdjustedCorpus : accumulatedCorpus).toLocaleString(localeStr)}`;
     }
-    if (elInvested) elInvested.textContent = `₹${Math.round(totalInvested).toLocaleString('en-IN')}`;
-    if (elGains) elGains.textContent = `₹${Math.round(estimatedGains).toLocaleString('en-IN')}`;
+    if (elInvested) elInvested.textContent = `${currSymbol}${Math.round(totalInvested).toLocaleString(localeStr)}`;
+    if (elGains) elGains.textContent = `${currSymbol}${Math.round(estimatedGains).toLocaleString(localeStr)}`;
 
     if (elInflationLabel) {
       elInflationLabel.style.display = adjustInflation ? 'block' : 'none';
-      elInflationLabel.textContent = `*Purchasing power in today's money (adjusted for ${inflationRate}% inflation): ₹${Math.round(inflationAdjustedCorpus).toLocaleString('en-IN')}`;
+      elInflationLabel.textContent = `*Purchasing power in today's money (adjusted for ${inflationRate}% inflation): ${currSymbol}${Math.round(inflationAdjustedCorpus).toLocaleString(localeStr)}`;
     }
 
     // Render Donut Chart
@@ -139,7 +143,7 @@
           { label: 'Est. Wealth Gains', value: Math.round(estimatedGains), color: '#10B981' }
         ],
         'Total Wealth',
-        `₹${Math.round(accumulatedCorpus).toLocaleString('en-IN')}`
+        `${currSymbol}${Math.round(accumulatedCorpus).toLocaleString(localeStr)}`
       );
     }
 
@@ -164,9 +168,9 @@
         const tr = document.createElement('tr');
         tr.innerHTML = `
           <td style="font-weight:700;text-align:center;">Year ${y.year}</td>
-          <td class="font-mono">₹${Math.round(y.invested).toLocaleString('en-IN')}</td>
-          <td class="font-mono" style="color:#10B981;font-weight:700;">₹${Math.round(gain).toLocaleString('en-IN')}</td>
-          <td class="font-mono" style="font-weight:800;color:var(--text-primary);">₹${Math.round(y.corpus).toLocaleString('en-IN')}</td>
+          <td class="font-mono">${currSymbol}${Math.round(y.invested).toLocaleString(localeStr)}</td>
+          <td class="font-mono" style="color:#10B981;font-weight:700;">${currSymbol}${Math.round(gain).toLocaleString(localeStr)}</td>
+          <td class="font-mono" style="font-weight:800;color:var(--text-primary);">${currSymbol}${Math.round(y.corpus).toLocaleString(localeStr)}</td>
         `;
         tbody.appendChild(tr);
       });
@@ -174,6 +178,10 @@
   }
 
   document.addEventListener('DOMContentLoaded', initSipCalculator);
+
+  window.addEventListener('xestus:currency-change', () => {
+    calculateSIP();
+  });
 
 })();
 

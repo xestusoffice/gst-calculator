@@ -27,6 +27,10 @@ const XestusChart = {
     let accumulatedAngle = -90; // Start at 12 o'clock
     let paths = '';
 
+    const currSymbol = (window.Xestus && window.Xestus.getCurrency) ? window.Xestus.getCurrency().symbol : '₹';
+    const isIndian = (window.Xestus && window.Xestus.getCurrency) ? window.Xestus.getCurrency().system === 'indian' : true;
+    const localeStr = isIndian ? 'en-IN' : 'en-US';
+
     data.forEach((item) => {
       const percentage = (item.value / total);
       const dashLength = percentage * circumference;
@@ -50,7 +54,7 @@ const XestusChart = {
           data-value="${item.value}"
           style="transition: stroke-dasharray 0.5s ease;"
         >
-          <title>${item.label}: ₹${item.value.toLocaleString('en-IN')} (${(percentage * 100).toFixed(1)}%)</title>
+          <title>${item.label}: ${currSymbol}${item.value.toLocaleString(localeStr)} (${(percentage * 100).toFixed(1)}%)</title>
         </circle>
       `;
     });
@@ -63,7 +67,7 @@ const XestusChart = {
             <span style="width:10px;height:10px;border-radius:50%;background-color:${item.color};flex-shrink:0;"></span>
             <span style="color:var(--text-secondary);">${item.label}</span>
           </div>
-          <span class="font-mono" style="font-weight:700;color:var(--text-primary);">₹${item.value.toLocaleString('en-IN')} (${pct}%)</span>
+          <span class="font-mono" style="font-weight:700;color:var(--text-primary);">${currSymbol}${item.value.toLocaleString(localeStr)} (${pct}%)</span>
         </div>
       `;
     }).join('');
@@ -105,13 +109,17 @@ const XestusChart = {
       displayItems = items.filter((it, idx) => (idx + 1) % 2 === 0 || idx === items.length - 1);
     }
 
+    const currSymbol = (window.Xestus && window.Xestus.getCurrency) ? window.Xestus.getCurrency().symbol : '₹';
+    const isIndian = (window.Xestus && window.Xestus.getCurrency) ? window.Xestus.getCurrency().system === 'indian' : true;
+    const localeStr = isIndian ? 'en-IN' : 'en-US';
+
     const barNodes = displayItems.map((item) => {
       const h1 = (item.bar1 / maxTotal) * 170;
       const h2 = (item.bar2 / maxTotal) * 170;
       const totalH = Math.max(1, h1 + h2);
 
       return `
-        <div style="flex:1;min-width:18px;display:flex;flex-direction:column;align-items:center;height:100%;justify-content:flex-end;" title="Year ${item.year}: ${label1} ₹${item.bar1.toLocaleString('en-IN')}, ${label2} ₹${item.bar2.toLocaleString('en-IN')}">
+        <div style="flex:1;min-width:18px;display:flex;flex-direction:column;align-items:center;height:100%;justify-content:flex-end;" title="Year ${item.year}: ${label1} ${currSymbol}${item.bar1.toLocaleString(localeStr)}, ${label2} ${currSymbol}${item.bar2.toLocaleString(localeStr)}">
           <div style="width:75%;max-width:28px;display:flex;flex-direction:column;height:${(totalH / 170) * 100}%;border-radius:4px 4px 0 0;overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,0.2);">
             <div style="background-color:${color2};height:${(h2 / totalH) * 100}%;"></div>
             <div style="background-color:${color1};height:${(h1 / totalH) * 100}%;"></div>

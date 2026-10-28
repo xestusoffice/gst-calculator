@@ -216,17 +216,21 @@
     const tbody = document.getElementById('amortization-table-body');
     if (!tbody) return;
 
+    const curr = (window.Xestus && window.Xestus.getCurrency) ? window.Xestus.getCurrency() : { symbol: '₹', system: 'indian' };
+    const currSymbol = curr.symbol;
+    const localeStr = curr.system === 'indian' ? 'en-IN' : 'en-US';
+
     tbody.innerHTML = '';
     Object.keys(yearlyMap).forEach(yr => {
       const y = yearlyMap[yr];
       const tr = document.createElement('tr');
       tr.innerHTML = `
         <td style="font-weight:700;text-align:center;">Year ${y.year}</td>
-        <td class="font-mono">₹${Math.round(y.opening).toLocaleString('en-IN')}</td>
-        <td class="font-mono" style="color:#10B981;font-weight:700;">₹${Math.round(y.principalPaid).toLocaleString('en-IN')}</td>
-        <td class="font-mono" style="color:#3B82F6;">₹${Math.round(y.interestPaid).toLocaleString('en-IN')}</td>
-        <td class="font-mono">₹${Math.round(y.principalPaid + y.interestPaid).toLocaleString('en-IN')}</td>
-        <td class="font-mono" style="font-weight:700;">₹${Math.round(y.closing).toLocaleString('en-IN')}</td>
+        <td class="font-mono">${currSymbol}${Math.round(y.opening).toLocaleString(localeStr)}</td>
+        <td class="font-mono" style="color:#10B981;font-weight:700;">${currSymbol}${Math.round(y.principalPaid).toLocaleString(localeStr)}</td>
+        <td class="font-mono" style="color:#3B82F6;">${currSymbol}${Math.round(y.interestPaid).toLocaleString(localeStr)}</td>
+        <td class="font-mono">${currSymbol}${Math.round(y.principalPaid + y.interestPaid).toLocaleString(localeStr)}</td>
+        <td class="font-mono" style="font-weight:700;">${currSymbol}${Math.round(y.closing).toLocaleString(localeStr)}</td>
       `;
       tbody.appendChild(tr);
     });
@@ -255,6 +259,10 @@
   }
 
   document.addEventListener('DOMContentLoaded', initLoanCalculator);
+
+  window.addEventListener('xestus:currency-change', () => {
+    calculateEMI();
+  });
 
 })();
 
