@@ -1048,6 +1048,134 @@ input:focus, select:focus, textarea:focus {
 .toast.show { transform: translateX(0); }
 
 /* ==========================================================================
+   9B. PWA INSTALL BANNER, SHARING ACTIONS & FORMULA CARDS
+   ========================================================================== */
+
+/* PWA App Install Banner */
+.pwa-install-banner {
+  position: fixed;
+  bottom: 1.5rem;
+  left: 1.5rem;
+  max-width: 380px;
+  background: var(--bg-card);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--accent-primary);
+  border-radius: var(--radius-lg);
+  padding: 1.1rem 1.25rem;
+  box-shadow: var(--shadow-lg), var(--shadow-glow);
+  z-index: 9998;
+  display: none;
+  animation: slideUpFade 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes slideUpFade {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 640px) {
+  .pwa-install-banner {
+    left: 1rem;
+    right: 1rem;
+    bottom: 1rem;
+    max-width: calc(100% - 2rem);
+  }
+}
+
+/* Share & Action Buttons */
+.share-actions-group {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.65rem;
+  margin-top: 0.75rem;
+}
+
+@media (max-width: 480px) {
+  .share-actions-group {
+    grid-template-columns: 1fr;
+  }
+}
+
+.btn-whatsapp {
+  background-color: #25D366 !important;
+  color: #ffffff !important;
+  border-color: #25D366 !important;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  transition: all var(--transition-fast);
+  cursor: pointer;
+}
+
+.btn-whatsapp:hover {
+  background-color: #128C7E !important;
+  border-color: #128C7E !important;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(37, 211, 102, 0.3);
+}
+
+.btn-share-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+/* SEO Formula & Rich Snippet Cards */
+.seo-formula-box {
+  background: var(--bg-card);
+  border: 1px solid var(--border-card);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+  margin: 2rem 0;
+}
+
+.formula-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.25rem;
+  margin-top: 1rem;
+}
+
+.formula-card {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-left: 4px solid var(--accent-primary);
+  border-radius: var(--radius-md);
+  padding: 1.1rem;
+}
+
+.formula-card h4 {
+  font-size: 0.95rem;
+  margin-bottom: 0.5rem;
+  color: var(--text-primary);
+}
+
+.formula-expr {
+  background: var(--bg-primary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  padding: 0.6rem 0.8rem;
+  font-family: var(--font-mono);
+  font-size: 0.88rem;
+  color: var(--accent-primary);
+  margin-bottom: 0.5rem;
+  word-break: break-all;
+}
+
+.formula-card p {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  line-height: 1.45;
+  margin: 0;
+}
+
+/* ==========================================================================
    10. PRINT INVOICE A4 SPECIFICATIONS
    ========================================================================== */
 

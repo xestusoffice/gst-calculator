@@ -357,9 +357,86 @@
         // SW registration fail safe
       });
     }
+
+    // Initialize Smart PWA Install Prompt
+    initPwaInstallPrompt();
   });
 
-  // 4. GOOGLE CONSENT MODE v2 BANNER
+  // 4. SMART PWA INSTALL BANNER
+  function initPwaInstallPrompt() {
+    let deferredPrompt = null;
+    const DISMISS_KEY = 'xestus_pwa_dismissed';
+
+    // Check if dismissed in last 5 days
+    try {
+      const dismissed = localStorage.getItem(DISMISS_KEY);
+      if (dismissed && Date.now() - parseInt(dismissed, 10) < 5 * 24 * 60 * 60 * 1000) {
+        return; // Don't annoy the user
+      }
+    } catch (e) {}
+
+    window.addEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault();
+      deferredPrompt = e;
+
+      // Create banner dynamically if not present
+      if (!document.getElementById('pwa-install-banner')) {
+        const banner = document.createElement('div');
+        banner.id = 'pwa-install-banner';
+        banner.className = 'pwa-install-banner';
+        banner.setAttribute('role', 'dialog');
+        banner.setAttribute('aria-label', 'Install App Prompt');
+        banner.innerHTML = `
+          <div style="display:flex;align-items:center;gap:0.75rem;">
+            <img src="./assets/icons/favicon.svg" alt="App Icon" width="36" height="36" style="border-radius:8px;background:var(--accent-primary-subtle);padding:4px;">
+            <div>
+              <div style="font-weight:700;font-size:0.95rem;color:var(--text-primary);line-height:1.2;">Install GST App</div>
+              <div style="font-size:0.8rem;color:var(--text-secondary);margin-top:2px;">Fast, offline &amp; free on your screen</div>
+            </div>
+          </div>
+          <div style="display:flex;gap:0.5rem;align-items:center;margin-top:0.85rem;justify-content:flex-end;">
+            <button type="button" id="pwa-dismiss-btn" class="btn btn-secondary" style="padding:0.35rem 0.75rem;font-size:0.8rem;">Later</button>
+            <button type="button" id="pwa-install-btn" class="btn btn-primary" style="padding:0.35rem 0.9rem;font-size:0.8rem;font-weight:700;">Install Now</button>
+          </div>
+        `;
+        document.body.appendChild(banner);
+
+        const installBtn = banner.querySelector('#pwa-install-btn');
+        const dismissBtn = banner.querySelector('#pwa-dismiss-btn');
+
+        installBtn.addEventListener('click', async () => {
+          if (!deferredPrompt) return;
+          deferredPrompt.prompt();
+          const { outcome } = await deferredPrompt.userChoice;
+          if (outcome === 'accepted') {
+            window.Xestus.toast('Thank you for installing GST Calculator App!');
+          }
+          deferredPrompt = null;
+          banner.style.display = 'none';
+        });
+
+        dismissBtn.addEventListener('click', () => {
+          banner.style.display = 'none';
+          try {
+            localStorage.setItem(DISMISS_KEY, Date.now().toString());
+          } catch (e) {}
+        });
+
+        // Show banner after 3 seconds of engagement
+        setTimeout(() => {
+          banner.style.display = 'block';
+        }, 3000);
+      }
+    });
+
+    window.addEventListener('appinstalled', () => {
+      const b = document.getElementById('pwa-install-banner');
+      if (b) b.style.display = 'none';
+      deferredPrompt = null;
+    });
+  }
+
+  // 5. GOOGLE CONSENT MODE v2 BANNER
   function initCookieConsent() {
     const CONSENT_KEY = 'xestus_consent_v2';
     const banner = document.getElementById('cookie-consent-banner');

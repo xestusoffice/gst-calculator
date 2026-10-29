@@ -161,6 +161,19 @@
         `${currSymbol}${Math.round(currentMode === 'exclusive' ? grossAmount : netAmount).toLocaleString(localeStr)}`
       );
     }
+
+    // Keep URL parameters updated in browser address bar for 1-click sharing
+    if (window.history && window.history.replaceState && window.location.protocol.startsWith('http')) {
+      try {
+        const amt = baseAmountInput ? baseAmountInput.value : '10000';
+        const url = new URL(window.location.origin + window.location.pathname);
+        url.searchParams.set('amt', amt);
+        url.searchParams.set('rate', currentRate);
+        url.searchParams.set('mode', currentMode);
+        url.searchParams.set('supply', currentSupply);
+        window.history.replaceState({}, '', url.toString());
+      } catch (e) {}
+    }
   }
 
   // Bind Events
@@ -274,6 +287,108 @@
         window.Xestus.toast('GST breakdown copied to clipboard!');
       });
     });
+  }
+
+  // Shareable Link & WhatsApp Sharing Engine
+  function getShareableUrl() {
+    const amt = baseAmountInput ? baseAmountInput.value : '10000';
+    const url = new URL(window.location.origin + window.location.pathname);
+    url.searchParams.set('amt', amt);
+    url.searchParams.set('rate', currentRate);
+    url.searchParams.set('mode', currentMode);
+    url.searchParams.set('supply', currentSupply);
+    return url.toString();
+  }
+
+  const shareWhatsAppBtn = document.getElementById('btn-share-whatsapp');
+  if (shareWhatsAppBtn) {
+    shareWhatsAppBtn.addEventListener('click', () => {
+      const shareUrl = getShareableUrl();
+      const curr = (window.Xestus && window.Xestus.getCurrency) ? window.Xestus.getCurrency() : { symbol: '₹' };
+      const amtVal = baseAmountInput ? baseAmountInput.value : '10000';
+      const gross = resGross ? resGross.textContent : '';
+      const tax = resGst ? resGst.textContent : '';
+      const modeText = currentMode === 'inclusive' ? 'Inclusive' : 'Exclusive';
+
+      const msg = `📊 *GST Calculation Breakdown*\n` +
+        `• Amount: ${curr.symbol}${amtVal} (${modeText})\n` +
+        `• Tax Rate: ${currentRate}% GST\n` +
+        `• Total Tax: ${tax}\n` +
+        `• *Final Amount: ${gross}*\n\n` +
+        `🔗 View or adjust live:\n${shareUrl}`;
+
+      const waUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(msg)}`;
+      window.open(waUrl, '_blank', 'noopener,noreferrer');
+    });
+  }
+
+  const shareLinkBtn = document.getElementById('btn-share-link');
+  if (shareLinkBtn) {
+    shareLinkBtn.addEventListener('click', () => {
+      const shareUrl = getShareableUrl();
+      navigator.clipboard.writeText(shareUrl).then(() => {
+        window.Xestus.toast('Direct calculation link copied to clipboard!');
+      });
+    });
+  }
+
+  // URL Query Parameters Reader (Supports pre-filled calculation links)
+  function readUrlParams() {
+    try {
+      const params = new URLSearchParams(window.location.search);
+      const amt = params.get('amt') || params.get('amount');
+      const rate = params.get('rate');
+      const mode = params.get('mode');
+      const supply = params.get('supply');
+      const country = params.get('country');
+
+      if (country && COUNTRY_TAX_PRESETS[country.toUpperCase()]) {
+        const pill = document.querySelector(`[data-tax-country="${country.toUpperCase()}"]`);
+        if (pill) pill.click();
+      }
+
+      if (mode && (mode === 'inclusive' || mode === 'exclusive')) {
+        currentMode = mode;
+        modeButtons.forEach(btn => {
+          const isMatch = btn.getAttribute('data-gst-mode') === mode;
+          btn.classList.toggle('active', isMatch);
+          btn.setAttribute('aria-selected', isMatch ? 'true' : 'false');
+        });
+      }
+
+      if (supply && (supply === 'intra' || supply === 'inter')) {
+        currentSupply = supply;
+        supplyButtons.forEach(btn => {
+          btn.classList.toggle('active', btn.getAttribute('data-gst-supply') === supply);
+        });
+      }
+
+      if (rate !== null && !isNaN(parseFloat(rate))) {
+        const numRate = parseFloat(rate);
+        currentRate = numRate;
+        let matched = false;
+        slabButtons.forEach(b => {
+          if (parseFloat(b.getAttribute('data-rate')) === numRate) {
+            b.classList.add('active');
+            matched = true;
+          } else {
+            b.classList.remove('active');
+          }
+        });
+        if (!matched && customRateInput) {
+          customRateInput.value = numRate;
+        }
+      }
+
+      if (amt && !isNaN(parseFloat(amt))) {
+        const numAmt = parseFloat(amt);
+        if (baseAmountInput) baseAmountInput.value = numAmt;
+        if (amountSlider) amountSlider.value = numAmt;
+        syncChipActive(numAmt);
+      }
+    } catch (err) {
+      console.warn('URL param reading error:', err);
+    }
   }
 
   // Multi-Item Bill Workspace
@@ -537,6 +652,7 @@
 
   // Initial Calculation on Load
   document.addEventListener('DOMContentLoaded', () => {
+    readUrlParams();
     calculateGST();
     renderMultiItems();
     initHsnFinder();
